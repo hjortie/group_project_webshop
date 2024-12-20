@@ -12,8 +12,8 @@
   --main-placeholder-color: #b5a3b8;
 }
 
-*{
-  font-family: 'Poppins', sans-serif;
+* {
+  font-family: "Poppins", sans-serif;
 }
 
 a {
@@ -51,6 +51,25 @@ p {
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+}
+
+#womens-clothing {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 2rem;
+}
+#item-container {
+  width: 20%;
+  height: 32rem;
+  text-align: left;
+
+  img {
+    height: 24rem;
+    max-width: 100%;
+  }
 }
 
 button {
