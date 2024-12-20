@@ -1,19 +1,22 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Work+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap");
 
 :root {
-  line-height: 1.5;
-  font-weight: 400;
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-
   --main-bg-color: #f5f7f9;
   --main-p-color: #64748b;
   --main-h-color: #000000;
   --main-placeholder-color: #b5a3b8;
+  --navBorder: #e2e8f0;
+  --primary: #64748b;
+  --secondary: #94a3b8;
+  --lightText: #191a1b;
 }
 
 * {
   font-family: "Poppins", sans-serif;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  overflow-x: hidden;
 }
 
 a {
@@ -27,50 +30,48 @@ a:hover {
 
 html,
 body {
-  margin: 0;
-  display: flex;
-  min-width: 320px;
-  min-height: 100vh;
   background-color: var(--main-bg-color);
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+/* footer styling */ 
+
+.footer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.footer-top {
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--main-bg-color);
   color: var(--main-h-color);
+  border-bottom: 1px solid var(--navBorder);
 }
 
-p {
-  color: var(--main-p-color);
-  font-size: 1.2em;
-  line-height: 1.5;
-  margin: 1.5em 0;
+.footer-top .content {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 20px;
 }
 
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+.footer-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+.footer-column img {
+  width: 160px;
 }
 
 nav {
@@ -107,4 +108,52 @@ nav {
     padding-right: 3%;
     color: white;
   }
+.footer-column span,
+.footer-column a {
+  font-size: 17px;
+  color: var(--lightText);
+  text-decoration: none;
 }
+
+
+.footer-column a:hover {
+  color: var(--primary);
+}
+
+.footer-icon-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.footer-icon-row i {
+  color: var(--primary);
+  font-size: 20px;
+}
+
+.footer-bottom {
+  width: 100%;
+  background-color: var(--main-bg-color);
+  padding: 10px 20px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.social-icons {
+  display: flex;
+  gap: 25px;
+}
+
+.social-icons a {
+  color: var(--secondary);
+  font-size: 35px;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.social-icons a:hover {
+  color: var(--primary);
+}
+/* End footer styling */ 
