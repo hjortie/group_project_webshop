@@ -78,6 +78,9 @@ i {
       height: 24rem;
       max-width: 100%;
     }
+    span {
+      display: block;
+    }
   }
 }
 /* footer styling */
