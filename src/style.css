@@ -52,37 +52,127 @@ a:visited {
 
 a:hover {
   text-decoration: underline;
-}
 
-i {
-  font-size: 2rem;
-  margin-left: auto;
-  padding-right: 3%;
-  color: white;
-}
 
-#womens-clothing {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 2rem;
-
-  #item-container {
-    width: 20%;
-    height: 32rem;
-    text-align: left;
-
-    img {
-      height: 24rem;
-      max-width: 100%;
-    }
-    span {
-      display: block;
-    }
+  i {
+    font-size: 2rem;
+    margin-left: auto;
+    padding-right: 3%;
+    color: white;
   }
 }
+
+
+/* Checkout */
+.main-container {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+  padding: 0 30px;
+}
+
+
+.payment-form {
+  width: 40%;
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.payment-form h2 {
+  font-size: 1.5em;
+  margin-bottom: 20px;
+}
+
+.payment-form form label {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.payment-form form input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.payment-form form button {
+  width: 100%;
+  padding: 10px;
+  background-color: #333;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.payment-form form button:hover {
+  background-color: #444;
+}
+
+
+.product-cart {
+  width: 55%;
+  padding: 0 20px;
+}
+
+
+.shop-items {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.shop-item {
+  width: 45%;
+  background-color: #fff;
+  margin: 10px;
+  padding: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.shop-item img {
+  width: 100%;
+}
+
+.cart-items {
+  margin-top: 20px;
+}
+
+.cart-total {
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+.thank-you-message {
+  display: none; 
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Center the div both vertically and horizontally */
+  background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent background */
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  font-size: 24px;
+  z-index: 9999; /* Ensure it appears on top of other content */
+  opacity: 0; /* Start with opacity 0 (invisible) */
+  animation: fadeIn 2s forwards; /* Fade-in animation */
+}
+
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* End Checkout */
 /* footer styling */
 
 .footer {
