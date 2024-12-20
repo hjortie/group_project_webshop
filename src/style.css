@@ -37,30 +37,51 @@ nav {
     font-size: larger;
     color: white;
   }
-  a {
-    text-decoration: none;
-    padding-left: 5%;
-    color: white;
-  }
+}
 
-  a:visited {
-    color: black;
-    color: white;
-  }
+#womens-clothing {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 2rem;
 
-  a:hover {
-    text-decoration: underline;
-  }
+  #item-container {
+    width: 20%;
+    height: 32rem;
+    text-align: left;
 
-  i {
-    font-size: 2rem;
-    margin-left: auto;
-    padding-right: 3%;
-    color: white;
+    img {
+      height: 24rem;
+      max-width: 100%;
+    }
   }
 }
 
-/* footer styling */ 
+a {
+  text-decoration: none;
+  padding-left: 5%;
+  color: white;
+}
+
+a:visited {
+  color: black;
+  color: white;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+i {
+  font-size: 2rem;
+  margin-left: auto;
+  padding-right: 3%;
+  color: white;
+}
+
+/* footer styling */
 
 .footer {
   width: 100%;
@@ -101,14 +122,12 @@ nav {
   width: 160px;
 }
 
-
 .footer-column span,
 .footer-column a {
   font-size: 17px;
   color: var(--lightText);
   text-decoration: none;
 }
-
 
 .footer-column a:hover {
   color: var(--primary);
@@ -150,4 +169,4 @@ nav {
 .social-icons a:hover {
   color: var(--primary);
 }
-/* End footer styling */ 
+/* End footer styling */
