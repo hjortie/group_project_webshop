@@ -1,11 +1,19 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Work+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+
+  --main-bg-color: #f5f7f9;
+  --main-p-color: #64748b;
+  --main-h-color: #000000;
+  --main-placeholder-color: #b5a3b8;
+}
+
+*{
+  font-family: 'Poppins', sans-serif;
 }
 
 a {
@@ -22,11 +30,20 @@ body {
   display: flex;
   min-width: 320px;
   min-height: 100vh;
+  background-color: var(--main-bg-color);
 }
 
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
+  color: var(--main-h-color);
+}
+
+p {
+  color: var(--main-p-color);
+  font-size: 1.2em;
+  line-height: 1.5;
+  margin: 1.5em 0;
 }
 
 #app {
