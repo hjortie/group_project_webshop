@@ -3,6 +3,9 @@ document.readyState === 'loading'
   : ready();
 
 function ready(): void {
+  // Load cart items from localStorage on page load
+  loadCartFromLocalStorage();
+
   const removeCartItemButtons = document.getElementsByClassName('btn-danger');
   for (let i = 0; i < removeCartItemButtons.length; i++) {
     const button = removeCartItemButtons[i] as HTMLButtonElement;
@@ -25,11 +28,49 @@ function ready(): void {
   purchaseButton.addEventListener('click', purchaseClicked);
 }
 
+function loadCartFromLocalStorage(): void {
+  const cartItems = JSON.parse(localStorage.getItem('cart') || '[]');
+  const cartContainer = document.getElementsByClassName('cart-items')[0] as HTMLElement;
+  cartContainer.innerHTML = ''; // Clear existing cart items
+
+  cartItems.forEach((item: { image: string; title: string; price: number }) => {
+    const cartRow = document.createElement('div');
+    cartRow.classList.add('cart-row');
+
+    const cartRowContents = `
+      <div class="cart-item cart-column">
+          <img class="cart-item-image" src="${item.image}" width="100" height="100">
+          <span class="cart-item-title">${item.title}</span>
+      </div>
+      <span class="cart-price cart-column">$${item.price}</span>
+      <div class="cart-quantity cart-column">
+          <input class="cart-quantity-input" type="number" value="1">
+          <button class="btn btn-danger" type="button">REMOVE</button>
+      </div>`;
+
+    cartRow.innerHTML = cartRowContents;
+    cartContainer.appendChild(cartRow);
+
+    const removeButton = cartRow.getElementsByClassName('btn-danger')[0] as HTMLButtonElement;
+    removeButton.addEventListener('click', removeCartItem);
+
+    const quantityInput = cartRow.getElementsByClassName('cart-quantity-input')[0] as HTMLInputElement;
+    quantityInput.addEventListener('change', quantityChanged);
+  });
+
+  // Update the total price
+  updateCartTotal();
+}
+
 function purchaseClicked(): void {
   const cartItems = document.getElementsByClassName('cart-items')[0] as HTMLElement;
   while (cartItems.hasChildNodes()) {
     cartItems.removeChild(cartItems.firstChild!);
   }
+
+  // Clear localStorage cart
+  localStorage.removeItem('cart');
+
   updateCartTotal();
 
   // Show the "Thanks for giving us money!" message
@@ -42,7 +83,16 @@ function purchaseClicked(): void {
 
 function removeCartItem(event: Event): void {
   const buttonClicked = event.target as HTMLButtonElement;
-  buttonClicked.parentElement!.parentElement!.remove();
+  const cartRow = buttonClicked.parentElement!.parentElement!;
+  const title = cartRow.getElementsByClassName('cart-item-title')[0].innerHTML;
+
+  // Remove the item from localStorage
+  let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+  cart = cart.filter((item: { title: string }) => item.title !== title);
+  localStorage.setItem('cart', JSON.stringify(cart));
+
+  // Remove the cart row and update total
+  cartRow.remove();
   updateCartTotal();
 }
 
@@ -58,58 +108,49 @@ function addToCartClicked(event: Event): void {
   const button = event.target as HTMLButtonElement;
   const shopItem = button.parentElement!.parentElement! as HTMLElement;
   const title = (shopItem.getElementsByClassName('shop-item-title')[0] as HTMLElement).innerText;
-  const price = (shopItem.getElementsByClassName('shop-item-price')[0] as HTMLElement).innerText;
+  const price = parseFloat(
+    (shopItem.getElementsByClassName('shop-item-price')[0] as HTMLElement).innerText.replace('$', '')
+  );
   const imageSrc = (shopItem.getElementsByClassName('shop-item-image')[0] as HTMLImageElement).src;
+
   addItemToCart(title, price, imageSrc);
   updateCartTotal();
 }
 
-function addItemToCart(title: string, price: string, imageSrc: string): void {
-  const cartRow = document.createElement('div');
-  cartRow.classList.add('cart-row');
-  const cartItems = document.getElementsByClassName('cart-items')[0] as HTMLElement;
-  const cartItemNames = cartItems.getElementsByClassName('cart-item-title');
-  for (let i = 0; i < cartItemNames.length; i++) {
-    if ((cartItemNames[i] as HTMLElement).innerText === title) {
-      alert('This item is already added to the cart');
-      return;
-    }
+function addItemToCart(title: string, price: number, imageSrc: string): void {
+  // Save the item to localStorage
+  const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+  const itemExists = cart.some((item: { title: string }) => item.title === title);
+
+  if (itemExists) {
+    alert('This item is already added to the cart');
+    return;
   }
 
-  const cartRowContents = `
-    <div class="cart-item cart-column">
-        <img class="cart-item-image" src="${imageSrc}" width="100" height="100">
-        <span class="cart-item-title">${title}</span>
-    </div>
-    <span class="cart-price cart-column">${price}</span>
-    <div class="cart-quantity cart-column">
-        <input class="cart-quantity-input" type="number" value="1">
-        <button class="btn btn-danger" type="button">REMOVE</button>
-    </div>`;
+  const newItem = { title, price, image: imageSrc };
+  cart.push(newItem);
+  localStorage.setItem('cart', JSON.stringify(cart));
 
-  cartRow.innerHTML = cartRowContents;
-  cartItems.append(cartRow);
-
-  const removeButton = cartRow.getElementsByClassName('btn-danger')[0] as HTMLButtonElement;
-  removeButton.addEventListener('click', removeCartItem);
-
-  const quantityInput = cartRow.getElementsByClassName('cart-quantity-input')[0] as HTMLInputElement;
-  quantityInput.addEventListener('change', quantityChanged);
+  // Update the UI
+  loadCartFromLocalStorage();
 }
 
 function updateCartTotal(): void {
   const cartItemContainer = document.getElementsByClassName('cart-items')[0] as HTMLElement;
   const cartRows = cartItemContainer.getElementsByClassName('cart-row');
   let total = 0;
+
   for (let i = 0; i < cartRows.length; i++) {
     const cartRow = cartRows[i] as HTMLElement;
     const priceElement = cartRow.getElementsByClassName('cart-price')[0] as HTMLElement;
     const quantityElement = cartRow.getElementsByClassName('cart-quantity-input')[0] as HTMLInputElement;
+
     const price = parseFloat(priceElement.innerText.replace('$', ''));
     const quantity = Number(quantityElement.value);
     total += price * quantity;
   }
+
   total = Math.round(total * 100) / 100;
-  const totalPrice = document.getElementsByClassName('cart-total-price')[0] as HTMLElement;
-  totalPrice.innerText = `$${total}`;
+  const totalPriceElement = document.getElementsByClassName('cart-total-price')[0] as HTMLElement;
+  totalPriceElement.innerText = `$${total}`;
 }

@@ -106,28 +106,6 @@ a:hover {
   background-color: #444;
 }
 
-.product-cart {
-  width: 55%;
-  padding: 0 20px;
-}
-
-.shop-items {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.shop-item {
-  width: 45%;
-  background-color: #fff;
-  margin: 10px;
-  padding: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.shop-item img {
-  width: 100%;
-}
-
 .cart-items {
   margin-top: 20px;
 }
