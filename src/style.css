@@ -59,6 +59,29 @@ a:hover {
   padding-right: 3%;
   color: white;
 }
+
+/*Hero section*/
+
+#brandImage {
+  margin: 0;
+  height: 100vh;
+  background-image: url("/images/WEbshop brand Image");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+#introduction {
+  display: flex;
+  font-family: var(--main-p-color);
+}
+
+.brandNamn {
+  font-family: var(--main-h-color);
+}
+
+/*End Hero section*/
+
 /* Checkout */
 .main-container {
   display: flex;
