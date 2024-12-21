@@ -52,17 +52,14 @@ a:visited {
 
 a:hover {
   text-decoration: underline;
-
-
-  i {
-    font-size: 2rem;
-    margin-left: auto;
-    padding-right: 3%;
-    color: white;
-  }
 }
 
-
+#ShoppingCart {
+  font-size: 2rem;
+  margin-left: auto;
+  padding-right: 3%;
+  color: white;
+}
 /* Checkout */
 .main-container {
   display: flex;
@@ -70,7 +67,6 @@ a:hover {
   margin-top: 20px;
   padding: 0 30px;
 }
-
 
 .payment-form {
   width: 40%;
@@ -111,12 +107,10 @@ a:hover {
   background-color: #444;
 }
 
-
 .product-cart {
   width: 55%;
   padding: 0 20px;
 }
-
 
 .shop-items {
   display: flex;
@@ -145,11 +139,14 @@ a:hover {
 }
 
 .thank-you-message {
-  display: none; 
+  display: none;
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%); /* Center the div both vertically and horizontally */
+  transform: translate(
+    -50%,
+    -50%
+  ); /* Center the div both vertically and horizontally */
   background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent background */
   color: white;
   padding: 20px;
@@ -161,7 +158,6 @@ a:hover {
   opacity: 0; /* Start with opacity 0 (invisible) */
   animation: fadeIn 2s forwards; /* Fade-in animation */
 }
-
 
 @keyframes fadeIn {
   0% {
