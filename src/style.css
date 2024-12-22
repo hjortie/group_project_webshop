@@ -69,6 +69,12 @@ a:hover {
 
 .brand-wrapper {
   height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+#brandImage {
+  height: 60%;
   background-image: url("src/images/webshop_image.png");
   background-size: cover;
   background-position: center;
@@ -76,7 +82,7 @@ a:hover {
 }
 
 #introduction {
-  height: 100%;
+  height: 40%;
   background-color: var(--main-bg-color);
   display: flex;
   align-items: center;
@@ -98,7 +104,7 @@ a:hover {
 .brandNamn h1 {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   color: var(--main-h-color);
-  font-size: 2rem;
+  font-size: 2.4rem;
   margin: 0;
 }
 
