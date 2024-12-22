@@ -36,44 +36,69 @@ function loadCartFromLocalStorage(): void {
 
     const cartRowContents = `
       <div class="cart-item">
-  <img class="cart-item-image" src="${item.image}" width="100" height="100">
-  <div class="cart-item-details">
-    <span class="cart-item-title">${item.title}</span>
-    <span class="cart-price">$${item.price}</span>
-    <div class="cart-size">
-      <label for="size">Size:</label>
-      <select id="size">
-        <option>S</option>
-        <option>M</option>
-        <option selected>L</option>
-        <option>XL</option>
-        <option>XXL</option>
-        <option>XXXL</option>
-        <option>XXXXL</option>
-        <option>XXXXXL</option>
-        <option>XXXXXXL</option>
-      </select>
-    </div>
-    <div class="cart-quantity">
-      <label for="quantity">Quantity:</label>
-      <input id="quantity" class="cart-quantity-input" type="number" value="1">
-    </div>
-  </div>
-      <button class="btn btn-danger" type="button">
-      <i class="fa-solid fa-trash-can"></i>
-    </button>
-</div>
-
-     `;
+        <img class="cart-item-image" src="${item.image}" width="100" height="100">
+        <div class="cart-item-details">
+          <span class="cart-item-title">${item.title}</span>
+          <span class="cart-price">$${item.price}</span>
+          <div class="cart-size">
+            <label for="size">Size:</label>
+            <select id="size">
+              <option>S</option>
+              <option>M</option>
+              <option selected>L</option>
+              <option>XL</option>
+              <option>XXL</option>
+              <option>XXXL</option>
+              <option>XXXXL</option>
+              <option>XXXXXL</option>
+              <option>XXXXXXL</option>
+            </select>
+          </div>
+          <div class="cart-quantity">
+            <label for="quantity">Quantity:</label>
+            <button class="quantity-btn decrement" type="button">-</button>
+            <input id="quantity" class="cart-quantity-input" type="number" value="1" min="1">
+            <button class="quantity-btn increment" type="button">+</button>
+          </div>
+        </div>
+        <button class="btn btn-danger" type="button">
+          <i class="fa-solid fa-trash-can"></i>
+        </button>
+      </div>
+    `;
 
     cartRow.innerHTML = cartRowContents;
     cartContainer.appendChild(cartRow);
 
+    // Initialize event listeners for remove button
     const removeButton = cartRow.getElementsByClassName('btn-danger')[0] as HTMLButtonElement;
     removeButton.addEventListener('click', removeCartItem);
 
+    // Initialize event listeners for quantity input
     const quantityInput = cartRow.getElementsByClassName('cart-quantity-input')[0] as HTMLInputElement;
     quantityInput.addEventListener('change', quantityChanged);
+
+    // Initialize event listeners for increment and decrement buttons
+    const incrementButton = cartRow.getElementsByClassName('increment')[0] as HTMLButtonElement;
+    const decrementButton = cartRow.getElementsByClassName('decrement')[0] as HTMLButtonElement;
+
+    incrementButton.addEventListener('click', () => {
+      const currentValue = parseInt(quantityInput.value, 10);
+      quantityInput.value = (currentValue + 1).toString();
+
+      // Update the total after increment
+      updateCartTotal();
+    });
+
+    decrementButton.addEventListener('click', () => {
+      const currentValue = parseInt(quantityInput.value, 10);
+      if (currentValue > 1) {
+        quantityInput.value = (currentValue - 1).toString();
+
+        // Update the total after decrement
+        updateCartTotal();
+      }
+    });
   });
 
   // Update the total price
@@ -101,16 +126,23 @@ function purchaseClicked(): void {
 
 function removeCartItem(event: Event): void {
   const buttonClicked = event.target as HTMLButtonElement;
-  const cartRow = buttonClicked.parentElement!.parentElement!;
-  const title = cartRow.getElementsByClassName('cart-item-title')[0].innerHTML;
+  const cartRow = buttonClicked.closest('.cart-row') as HTMLElement; // Find the closest cart row
+  const title = (cartRow.getElementsByClassName('cart-item-title')[0] as HTMLElement).innerText; // Typecast the element to HTMLElement
 
-  // Remove the item from localStorage
+  // Get the index of the item in the localStorage array
   let cart = JSON.parse(localStorage.getItem('cart') || '[]');
-  cart = cart.filter((item: { title: string }) => item.title !== title);
-  localStorage.setItem('cart', JSON.stringify(cart));
+  const itemIndex = cart.findIndex((item: { title: string }) => item.title === title);
 
-  // Remove the cart row and update total
+  if (itemIndex !== -1) {
+    // Remove the item at the found index
+    cart.splice(itemIndex, 1);
+    localStorage.setItem('cart', JSON.stringify(cart));
+  }
+
+  // Remove the cart row from the DOM
   cartRow.remove();
+
+  // Update the total price
   updateCartTotal();
 }
 

@@ -112,27 +112,67 @@ a:hover {
   margin-bottom: 10px;
   padding: 10px;
   border: 1px solid var(--navBorder);
-  align-items: flex-start; /* Align items at the top */
-  gap: 15px; /* Add some spacing between the image and details */
+  align-items: flex-start; 
+  gap: 15px; 
 }
 
 .cart-item-image {
-  flex-shrink: 0; /* Prevent image from shrinking */
+  flex-shrink: 0; 
 }
 
 .cart-item-details {
   display: flex;
-  flex-direction: column; /* Stack the details vertically */
+  flex-direction: column; 
   justify-content: flex-start;
-  gap: 10px; /* Space between each detail */
+  gap: 10px; 
 }
 
 .cart-size label,
 .cart-quantity label {
   margin-right: 5px;
   font-weight: bold;
-  color: var(--main-h-color); /* Matches your main heading color */
+  color: var(--main-h-color); 
 }
+
+.cart-quantity {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.quantity-btn {
+  background-color: #333;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.quantity-btn:hover {
+  background-color: #444;
+}
+
+.cart-quantity-input {
+  width: 50px;
+  text-align: center;
+  font-size: 16px;
+  padding: 3px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  -webkit-appearance: none;
+  
+}
+
+/* Remove arrow on number input */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+} 
+
+
 
 .cart-price {
   font-size: 1.2em;
@@ -152,7 +192,7 @@ a:hover {
 }
 
 .btn.btn-danger:hover {
-  color: var(--main-h-color); /* Change color on hover */
+  color: var(--main-h-color); 
 }
 
 .btn.btn-danger i {
