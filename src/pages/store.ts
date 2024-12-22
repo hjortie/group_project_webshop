@@ -1,7 +1,3 @@
-document.readyState === 'loading'
-  ? document.addEventListener('DOMContentLoaded', ready)
-  : ready();
-
 function ready(): void {
   // Load cart items from localStorage on page load
   loadCartFromLocalStorage();
@@ -27,6 +23,7 @@ function ready(): void {
   const purchaseButton = document.getElementsByClassName('btn-purchase')[0] as HTMLButtonElement;
   purchaseButton.addEventListener('click', purchaseClicked);
 }
+ready();
 
 function loadCartFromLocalStorage(): void {
   const cartItems = JSON.parse(localStorage.getItem('cart') || '[]');
@@ -38,15 +35,36 @@ function loadCartFromLocalStorage(): void {
     cartRow.classList.add('cart-row');
 
     const cartRowContents = `
-      <div class="cart-item cart-column">
-          <img class="cart-item-image" src="${item.image}" width="100" height="100">
-          <span class="cart-item-title">${item.title}</span>
-      </div>
-      <span class="cart-price cart-column">$${item.price}</span>
-      <div class="cart-quantity cart-column">
-          <input class="cart-quantity-input" type="number" value="1">
-          <button class="btn btn-danger" type="button">REMOVE</button>
-      </div>`;
+      <div class="cart-item">
+  <img class="cart-item-image" src="${item.image}" width="100" height="100">
+  <div class="cart-item-details">
+    <span class="cart-item-title">${item.title}</span>
+    <span class="cart-price">$${item.price}</span>
+    <div class="cart-size">
+      <label for="size">Size:</label>
+      <select id="size">
+        <option>S</option>
+        <option>M</option>
+        <option selected>L</option>
+        <option>XL</option>
+        <option>XXL</option>
+        <option>XXXL</option>
+        <option>XXXXL</option>
+        <option>XXXXXL</option>
+        <option>XXXXXXL</option>
+      </select>
+    </div>
+    <div class="cart-quantity">
+      <label for="quantity">Quantity:</label>
+      <input id="quantity" class="cart-quantity-input" type="number" value="1">
+    </div>
+  </div>
+      <button class="btn btn-danger" type="button">
+      <i class="fa-solid fa-trash-can"></i>
+    </button>
+</div>
+
+     `;
 
     cartRow.innerHTML = cartRowContents;
     cartContainer.appendChild(cartRow);

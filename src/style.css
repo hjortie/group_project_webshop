@@ -62,7 +62,7 @@ a:hover {
 /* Checkout */
 .main-container {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
   margin-top: 20px;
   padding: 0 30px;
 }
@@ -106,6 +106,59 @@ a:hover {
   background-color: #444;
 }
 
+.cart-item {
+  position: relative;
+  display: flex;
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid var(--navBorder);
+  align-items: flex-start; /* Align items at the top */
+  gap: 15px; /* Add some spacing between the image and details */
+}
+
+.cart-item-image {
+  flex-shrink: 0; /* Prevent image from shrinking */
+}
+
+.cart-item-details {
+  display: flex;
+  flex-direction: column; /* Stack the details vertically */
+  justify-content: flex-start;
+  gap: 10px; /* Space between each detail */
+}
+
+.cart-size label,
+.cart-quantity label {
+  margin-right: 5px;
+  font-weight: bold;
+  color: var(--main-h-color); /* Matches your main heading color */
+}
+
+.cart-price {
+  font-size: 1.2em;
+  color: var(--primary);
+}
+
+.btn.btn-danger {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  background-color: transparent;
+  padding: 5px;
+  margin: 10px 20px;
+  border: none;
+  color: var(--primary);
+  cursor: pointer;
+}
+
+.btn.btn-danger:hover {
+  color: var(--main-h-color); /* Change color on hover */
+}
+
+.btn.btn-danger i {
+  font-size: 22px;
+}
+
 .cart-items {
   margin-top: 20px;
 }
@@ -123,17 +176,17 @@ a:hover {
   transform: translate(
     -50%,
     -50%
-  ); /* Center the div both vertically and horizontally */
-  background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent background */
+  ); 
+  background-color: rgba(0, 0, 0, 0.8); 
   color: white;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
   text-align: center;
   font-size: 24px;
-  z-index: 9999; /* Ensure it appears on top of other content */
-  opacity: 0; /* Start with opacity 0 (invisible) */
-  animation: fadeIn 2s forwards; /* Fade-in animation */
+  z-index: 9999;
+  opacity: 0; 
+  animation: fadeIn 2s forwards; 
 }
 
 @keyframes fadeIn {
@@ -222,6 +275,7 @@ a:hover {
 .social-icons {
   display: flex;
   gap: 25px;
+  
 }
 
 .social-icons a {
@@ -229,6 +283,7 @@ a:hover {
   font-size: 35px;
   text-decoration: none;
   transition: color 0.3s;
+  padding: 10px;
 }
 
 .social-icons a:hover {
