@@ -55,7 +55,8 @@ a:hover {
 
 /*Kategorisida*/
 
-#womens-clothing {
+#womens-clothing,
+#mens-clothing {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
