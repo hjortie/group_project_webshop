@@ -71,6 +71,7 @@ a:hover {
   img {
     height: 24rem;
     max-width: 100%;
+    display: block;
   }
 }
 
