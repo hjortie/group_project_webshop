@@ -1,11 +1,15 @@
-function ready(): void {
+function store(): void {
   // Load cart items from localStorage on page load
   loadCartFromLocalStorage();
 
   const removeCartItemButtons = document.getElementsByClassName('btn-danger');
   for (let i = 0; i < removeCartItemButtons.length; i++) {
     const button = removeCartItemButtons[i] as HTMLButtonElement;
-    button.addEventListener('click', removeCartItem);
+
+    // Use an anonymous function to pass the index to removeCartItem
+    button.addEventListener('click', () => {
+      removeCartItem(i); // Pass the index of the current button
+    });
   }
 
   const quantityInputs = document.getElementsByClassName('cart-quantity-input');
@@ -14,23 +18,17 @@ function ready(): void {
     input.addEventListener('change', quantityChanged);
   }
 
-  const addToCartButtons = document.getElementsByClassName('shop-item-button');
-  for (let i = 0; i < addToCartButtons.length; i++) {
-    const button = addToCartButtons[i] as HTMLButtonElement;
-    button.addEventListener('click', addToCartClicked);
-  }
-
   const purchaseButton = document.getElementsByClassName('btn-purchase')[0] as HTMLButtonElement;
   purchaseButton.addEventListener('click', purchaseClicked);
 }
-ready();
+store();
 
 function loadCartFromLocalStorage(): void {
   const cartItems = JSON.parse(localStorage.getItem('cart') || '[]');
   const cartContainer = document.getElementsByClassName('cart-items')[0] as HTMLElement;
   cartContainer.innerHTML = ''; // Clear existing cart items
 
-  cartItems.forEach((item: { image: string; title: string; price: number }) => {
+  cartItems.forEach((item: { image: string; title: string; price: number }, index: number) => { // Added index parameter
     const cartRow = document.createElement('div');
     cartRow.classList.add('cart-row');
 
@@ -61,7 +59,7 @@ function loadCartFromLocalStorage(): void {
             <button class="quantity-btn increment" type="button">+</button>
           </div>
         </div>
-        <button class="btn btn-danger" type="button">
+        <button class="btn btn-danger" id="btn-danger" type="button">
           <i class="fa-solid fa-trash-can"></i>
         </button>
       </div>
@@ -70,9 +68,9 @@ function loadCartFromLocalStorage(): void {
     cartRow.innerHTML = cartRowContents;
     cartContainer.appendChild(cartRow);
 
-    // Initialize event listeners for remove button
+    // Initialize event listeners for remove button, pass index to removeCartItem
     const removeButton = cartRow.getElementsByClassName('btn-danger')[0] as HTMLButtonElement;
-    removeButton.addEventListener('click', removeCartItem);
+    removeButton.addEventListener('click', () => removeCartItem(index)); // Pass the index here
 
     // Initialize event listeners for quantity input
     const quantityInput = cartRow.getElementsByClassName('cart-quantity-input')[0] as HTMLInputElement;
@@ -106,83 +104,40 @@ function loadCartFromLocalStorage(): void {
 }
 
 function purchaseClicked(): void {
-  const cartItems = document.getElementsByClassName('cart-items')[0] as HTMLElement;
-  while (cartItems.hasChildNodes()) {
-    cartItems.removeChild(cartItems.firstChild!);
-  }
+  const cartItems = document.getElementById('cart-items') as HTMLElement;
 
-  // Clear localStorage cart
+  cartItems.textContent = '';
+
   localStorage.removeItem('cart');
 
   updateCartTotal();
 
-  // Show the "Thanks for giving us money!" message
   const thankYouMessage = document.getElementById('thank-you-message') as HTMLElement;
-  thankYouMessage.style.display = 'block'; // Make the div visible
+  thankYouMessage.style.display = 'block'; 
   setTimeout(() => {
-    thankYouMessage.style.display = 'none'; // Hide the message after 5 seconds
-  }, 5000); // Hide after 5 seconds
+    thankYouMessage.style.display = 'none';
+  }, 5000);
 }
 
-function removeCartItem(event: Event): void {
-  const buttonClicked = event.target as HTMLButtonElement;
-  const cartRow = buttonClicked.closest('.cart-row') as HTMLElement; // Find the closest cart row
-  const title = (cartRow.getElementsByClassName('cart-item-title')[0] as HTMLElement).innerText; // Typecast the element to HTMLElement
+function removeCartItem(index: number): void {
+  const cart = JSON.parse(localStorage.getItem('cart') || '[]');
 
-  // Get the index of the item in the localStorage array
-  let cart = JSON.parse(localStorage.getItem('cart') || '[]');
-  const itemIndex = cart.findIndex((item: { title: string }) => item.title === title);
+  cart.splice(index, 1);
 
-  if (itemIndex !== -1) {
-    // Remove the item at the found index
-    cart.splice(itemIndex, 1);
-    localStorage.setItem('cart', JSON.stringify(cart));
-  }
+  localStorage.setItem('cart', JSON.stringify(cart));
 
-  // Remove the cart row from the DOM
-  cartRow.remove();
-
-  // Update the total price
+  loadCartFromLocalStorage();
   updateCartTotal();
 }
 
 function quantityChanged(event: Event): void {
   const input = event.target as HTMLInputElement;
-  if (isNaN(Number(input.value)) || Number(input.value) <= 0) {
+  
+  if (input.value === '' || Number(input.value) <= 0) {
     input.value = '1';
   }
+  
   updateCartTotal();
-}
-
-function addToCartClicked(event: Event): void {
-  const button = event.target as HTMLButtonElement;
-  const shopItem = button.parentElement!.parentElement! as HTMLElement;
-  const title = (shopItem.getElementsByClassName('shop-item-title')[0] as HTMLElement).innerText;
-  const price = parseFloat(
-    (shopItem.getElementsByClassName('shop-item-price')[0] as HTMLElement).innerText.replace('$', '')
-  );
-  const imageSrc = (shopItem.getElementsByClassName('shop-item-image')[0] as HTMLImageElement).src;
-
-  addItemToCart(title, price, imageSrc);
-  updateCartTotal();
-}
-
-function addItemToCart(title: string, price: number, imageSrc: string): void {
-  // Save the item to localStorage
-  const cart = JSON.parse(localStorage.getItem('cart') || '[]');
-  const itemExists = cart.some((item: { title: string }) => item.title === title);
-
-  if (itemExists) {
-    alert('This item is already added to the cart');
-    return;
-  }
-
-  const newItem = { title, price, image: imageSrc };
-  cart.push(newItem);
-  localStorage.setItem('cart', JSON.stringify(cart));
-
-  // Update the UI
-  loadCartFromLocalStorage();
 }
 
 function updateCartTotal(): void {
@@ -204,3 +159,5 @@ function updateCartTotal(): void {
   const totalPriceElement = document.getElementsByClassName('cart-total-price')[0] as HTMLElement;
   totalPriceElement.innerText = `$${total}`;
 }
+
+// Bugg när man väljer att ta bort en vara som inte är den sista i listan så försvinner två varor istället för en på första klicket. 
