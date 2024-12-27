@@ -26,7 +26,7 @@ store();
 function loadCartFromLocalStorage(): void {
   const cartItems = JSON.parse(localStorage.getItem('cart') || '[]');
   const cartContainer = document.getElementsByClassName('cart-items')[0] as HTMLElement;
-  cartContainer.innerHTML = ''; // Clear existing cart items
+  cartContainer.innerHTML = '';
 
   cartItems.forEach((item: { image: string; title: string; price: number }, index: number) => { // Added index parameter
     const cartRow = document.createElement('div');
@@ -141,7 +141,7 @@ function quantityChanged(event: Event): void {
 }
 
 function updateCartTotal(): void {
-  const cartItemContainer = document.getElementsByClassName('cart-items')[0] as HTMLElement;
+  const cartItemContainer = document.getElementById('cart-items') as HTMLElement;
   const cartRows = cartItemContainer.getElementsByClassName('cart-row');
   let total = 0;
 
@@ -150,14 +150,20 @@ function updateCartTotal(): void {
     const priceElement = cartRow.getElementsByClassName('cart-price')[0] as HTMLElement;
     const quantityElement = cartRow.getElementsByClassName('cart-quantity-input')[0] as HTMLInputElement;
 
-    const price = parseFloat(priceElement.innerText.replace('$', ''));
-    const quantity = Number(quantityElement.value);
+    // Get the price/quantity as a number
+    const price = +priceElement.innerText.replace('$', '')
+    const quantity = +quantityElement.value;
+
     total += price * quantity;
   }
 
-  total = Math.round(total * 100) / 100;
-  const totalPriceElement = document.getElementsByClassName('cart-total-price')[0] as HTMLElement;
+  // Round the total to 2 decimal, toFixed(2) returns a string, + operator to convert the result of toFixed(2) back to a number.
+  total = +total.toFixed(2);
+
+  const totalPriceElement = document.getElementById('cart-total-price') as HTMLElement;
   totalPriceElement.innerText = `$${total}`;
 }
 
+
 // Bugg när man väljer att ta bort en vara som inte är den sista i listan så försvinner två varor istället för en på första klicket. 
+// Fixas nog när alla funktioner har uppdateras. 
