@@ -1,34 +1,19 @@
 function store(): void {
-  // Load cart items from localStorage on page load
   loadCartFromLocalStorage();
-
-  const removeCartItemButtons = document.getElementsByClassName('btn-danger');
-  for (let i = 0; i < removeCartItemButtons.length; i++) {
-    const button = removeCartItemButtons[i] as HTMLButtonElement;
-
-    // Use an anonymous function to pass the index to removeCartItem
-    button.addEventListener('click', () => {
-      removeCartItem(i); // Pass the index of the current button
-    });
-  }
-
-  const quantityInputs = document.getElementsByClassName('cart-quantity-input');
-  for (let i = 0; i < quantityInputs.length; i++) {
-    const input = quantityInputs[i] as HTMLInputElement;
-    input.addEventListener('change', quantityChanged);
-  }
-
-  const purchaseButton = document.getElementsByClassName('btn-purchase')[0] as HTMLButtonElement;
+  
+  const purchaseButton = document.getElementById('btn-purchase') as HTMLButtonElement;
   purchaseButton.addEventListener('click', purchaseClicked);
 }
 store();
 
+
 function loadCartFromLocalStorage(): void {
   const cartItems = JSON.parse(localStorage.getItem('cart') || '[]');
-  const cartContainer = document.getElementsByClassName('cart-items')[0] as HTMLElement;
-  cartContainer.innerHTML = '';
+  const cartContainer = document.getElementById('cart-items') as HTMLElement;
+  cartContainer.innerHTML = ''; 
 
-  cartItems.forEach((item: { image: string; title: string; price: number }, index: number) => { // Added index parameter
+  for (let i = 0; i < cartItems.length; i++) {
+    const item = cartItems[i];
     const cartRow = document.createElement('div');
     cartRow.classList.add('cart-row');
 
@@ -37,7 +22,7 @@ function loadCartFromLocalStorage(): void {
         <img class="cart-item-image" src="${item.image}" width="100" height="100">
         <div class="cart-item-details">
           <span class="cart-item-title">${item.title}</span>
-          <span class="cart-price">$${item.price}</span>
+          <span class="cart-price" id="cart-price">${item.price}</span>
           <div class="cart-size">
             <label for="size">Size:</label>
             <select id="size">
@@ -68,38 +53,30 @@ function loadCartFromLocalStorage(): void {
     cartRow.innerHTML = cartRowContents;
     cartContainer.appendChild(cartRow);
 
-    // Initialize event listeners for remove button, pass index to removeCartItem
     const removeButton = cartRow.getElementsByClassName('btn-danger')[0] as HTMLButtonElement;
-    removeButton.addEventListener('click', () => removeCartItem(index)); // Pass the index here
+    removeButton.addEventListener('click', () => removeCartItem(i)); 
 
-    // Initialize event listeners for quantity input
     const quantityInput = cartRow.getElementsByClassName('cart-quantity-input')[0] as HTMLInputElement;
-    quantityInput.addEventListener('change', quantityChanged);
+    quantityInput.addEventListener('change', quantityChanged);  
 
-    // Initialize event listeners for increment and decrement buttons
     const incrementButton = cartRow.getElementsByClassName('increment')[0] as HTMLButtonElement;
     const decrementButton = cartRow.getElementsByClassName('decrement')[0] as HTMLButtonElement;
 
+    // Inputfields are strings by default, + Converts string to number, toString() converts number back to string
     incrementButton.addEventListener('click', () => {
-      const currentValue = parseInt(quantityInput.value, 10);
+      const currentValue = +quantityInput.value;
       quantityInput.value = (currentValue + 1).toString();
+      updateCartTotal(); 
+    });
 
-      // Update the total after increment
+    // Add "?" to ensure the value doesn't go below 1
+    decrementButton.addEventListener('click', () => {
+      const currentValue = +quantityInput.value;
+      quantityInput.value = (currentValue > 1 ? currentValue - 1 : currentValue).toString();
       updateCartTotal();
     });
+  }
 
-    decrementButton.addEventListener('click', () => {
-      const currentValue = parseInt(quantityInput.value, 10);
-      if (currentValue > 1) {
-        quantityInput.value = (currentValue - 1).toString();
-
-        // Update the total after decrement
-        updateCartTotal();
-      }
-    });
-  });
-
-  // Update the total price
   updateCartTotal();
 }
 
@@ -163,7 +140,3 @@ function updateCartTotal(): void {
   const totalPriceElement = document.getElementById('cart-total-price') as HTMLElement;
   totalPriceElement.innerText = `$${total}`;
 }
-
-
-// Bugg när man väljer att ta bort en vara som inte är den sista i listan så försvinner två varor istället för en på första klicket. 
-// Fixas nog när alla funktioner har uppdateras. 

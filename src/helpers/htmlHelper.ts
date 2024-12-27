@@ -23,20 +23,16 @@ export const createHtmlWomensClothes = (clothes: IwomensItem[]) => {
     document.getElementById("womens-clothing")?.appendChild(itemContainer);
 
     buyButton.addEventListener("click", () => {
-      // Create item object
       const selectedItem = {
         image: item.image,
         title: item.title,
         price: item.price,
       };
 
-      // Get existing items from localStorage
       const cart = JSON.parse(localStorage.getItem("cart") || "[]");
 
-      // Add new item to the cart array
       cart.push(selectedItem);
 
-      // Save updated cart to localStorage
       localStorage.setItem("cart", JSON.stringify(cart));
 
       alert(`${item.title} added to cart!`);
@@ -66,20 +62,17 @@ export const createHtmlMensClothes = (clothes: ImensItem[]) => {
     document.getElementById("mens-clothing")?.appendChild(itemContainer);
 
     buyButton.addEventListener("click", () => {
-      // Create item object
+    
       const selectedItem = {
         image: item.image,
         title: item.title,
         price: item.price,
       };
 
-      // Get existing items from localStorage
       const cart = JSON.parse(localStorage.getItem("cart") || "[]");
 
-      // Add new item to the cart array
       cart.push(selectedItem);
 
-      // Save updated cart to localStorage
       localStorage.setItem("cart", JSON.stringify(cart));
 
       alert(`${item.title} added to cart!`);
