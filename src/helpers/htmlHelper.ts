@@ -1,5 +1,6 @@
 import { ImensItem } from "../models/ImensItem";
 import { IwomensItem } from "../models/IwomensItem";
+import { createHtmlOneProduct } from "./htmlHelperProduct";
 
 export const createHtmlWomensClothes = (clothes: IwomensItem[]) => {
   clothes.forEach((item) => {
@@ -21,6 +22,11 @@ export const createHtmlWomensClothes = (clothes: IwomensItem[]) => {
     itemContainer.appendChild(price);
     itemContainer.appendChild(buyButton);
     document.getElementById("womens-clothing")?.appendChild(itemContainer);
+
+    itemContainer.addEventListener("click", () => {
+      window.location.href = "product-page.html";
+      createHtmlOneProduct();
+    });
 
     buyButton.addEventListener("click", () => {
       const selectedItem = {
@@ -62,7 +68,6 @@ export const createHtmlMensClothes = (clothes: ImensItem[]) => {
     document.getElementById("mens-clothing")?.appendChild(itemContainer);
 
     buyButton.addEventListener("click", () => {
-    
       const selectedItem = {
         image: item.image,
         title: item.title,

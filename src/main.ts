@@ -37,5 +37,6 @@ const newMensClothes = mensClothes.map(
       false
     )
 );
+
 createHtmlWomensClothes(newWomensClothes);
 createHtmlMensClothes(newMensClothes);
