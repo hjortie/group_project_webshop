@@ -35,6 +35,7 @@ nav {
     font-weight: bold;
     font-size: larger;
     color: white;
+    margin: 0 auto;
   }
 }
 
@@ -430,7 +431,7 @@ input::-webkit-inner-spin-button {
   justify-content: center;
   background-color: #edf0f2;
   color: var(--main-h-color);
-  border-bottom: 1px solid var(--navBorder);
+  border-bottom: 1px solid #c5cbd394;
 }
 
 .footer-top .content {
@@ -479,7 +480,7 @@ input::-webkit-inner-spin-button {
 
 .footer-bottom {
   width: 100%;
-  background-color: var(--main-bg-color);
+  background-color: #edf0f2;
   padding: 10px 20px;
   display: flex;
   flex-wrap: wrap;
