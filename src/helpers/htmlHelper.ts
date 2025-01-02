@@ -1,6 +1,5 @@
 import { ImensItem } from "../models/ImensItem";
 import { IwomensItem } from "../models/IwomensItem";
-import { createHtmlOneProduct } from "./htmlHelperProduct";
 
 export const createHtmlWomensClothes = (clothes: IwomensItem[]) => {
   clothes.forEach((item) => {
@@ -24,8 +23,8 @@ export const createHtmlWomensClothes = (clothes: IwomensItem[]) => {
     document.getElementById("womens-clothing")?.appendChild(itemContainer);
 
     itemContainer.addEventListener("click", () => {
+      localStorage.setItem("selectedProduct", JSON.stringify(item));
       window.location.href = "product-page.html";
-      createHtmlOneProduct();
     });
 
     buyButton.addEventListener("click", () => {
