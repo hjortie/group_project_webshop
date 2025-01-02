@@ -7,19 +7,19 @@ export const createHtmlWomensClothes = (clothes: IwomensItem[]) => {
     const image = document.createElement("img");
     const title = document.createElement("span");
     const price = document.createElement("p");
-    const buyButton = document.createElement("button");
+    // const buyButton = document.createElement("button");
 
     itemContainer.id = "item-container";
     image.src = item.image;
     image.alt = item.title;
     title.innerHTML = item.title;
     price.innerHTML = `${item.price} USD`;
-    buyButton.innerHTML = "Buy";
+    // buyButton.innerHTML = "Buy";
 
     itemContainer.appendChild(image);
     itemContainer.appendChild(title);
     itemContainer.appendChild(price);
-    itemContainer.appendChild(buyButton);
+    // itemContainer.appendChild(buyButton);
     document.getElementById("womens-clothing")?.appendChild(itemContainer);
 
     itemContainer.addEventListener("click", () => {
@@ -27,21 +27,21 @@ export const createHtmlWomensClothes = (clothes: IwomensItem[]) => {
       window.location.href = "product-page.html";
     });
 
-    buyButton.addEventListener("click", () => {
-      const selectedItem = {
-        image: item.image,
-        title: item.title,
-        price: item.price,
-      };
+    // buyButton.addEventListener("click", () => {
+    //   const selectedItem = {
+    //     image: item.image,
+    //     title: item.title,
+    //     price: item.price,
+    //   };
 
-      const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+    //   const cart = JSON.parse(localStorage.getItem("cart") || "[]");
 
-      cart.push(selectedItem);
+    //   cart.push(selectedItem);
 
-      localStorage.setItem("cart", JSON.stringify(cart));
+    //   localStorage.setItem("cart", JSON.stringify(cart));
 
-      alert(`${item.title} added to cart!`);
-    });
+    //   alert(`${item.title} added to cart!`);
+    // });
   });
 };
 

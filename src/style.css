@@ -325,6 +325,22 @@ input::-webkit-inner-spin-button {
 }
 
 /* End Checkout */
+
+/* Start product-page */
+#product-section {
+  display: flex;
+  flex-wrap: wrap;
+
+  #image-container {
+    width: 50vw;
+  }
+
+  #description-container {
+    width: 50vw;
+    padding: 5rem;
+  }
+}
+
 /* footer styling */
 
 .footer {
