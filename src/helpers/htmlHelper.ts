@@ -1,4 +1,3 @@
-import { getDataForModal } from "../main";
 import { Article } from "../services/article";
 
 export function getDataForModal() {
