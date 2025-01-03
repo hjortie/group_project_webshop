@@ -35,6 +35,7 @@ nav {
     font-weight: bold;
     font-size: larger;
     color: white;
+    margin: 0 auto;
   }
 }
 
@@ -53,30 +54,121 @@ a:hover {
   text-decoration: underline;
 }
 
+#ShoppingCart {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+}
+
+.right-side-nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#ShoppingCart i {
+  font-size: 30px;
+  color: white;
+}
+
+#ShoppingCart span {
+  font-size: 15px;
+  color: rgb(255, 255, 255);
+  font-weight: bolder;
+}
+
+/* Modal customization */
+.modal.left .modal-dialog {
+  position: fixed;
+  width: 100vw;
+  top: 0;
+  right: 0;
+  margin: 0;
+  height: 100%;
+  transition: transform 0.3s ease-out;
+}
+
+.modal.left .modal-dialog.modal-sm {
+  max-width: 300px;
+}
+
+.modal.left .modal-content {
+  height: 100%;
+  border: 0;
+  border-radius: 0;
+}
+
+.modal.left.fade .modal-dialog {
+  transform: translateX(100%);
+}
+
+.modal.left.fade.show .modal-dialog {
+  transform: translateX(0);
+}
+
+/* Table adjustments */
+.table-image {
+  td,
+  th {
+    font-size: 0.9rem;
+    text-align: left;
+  }
+}
+
+.qty input {
+  max-width: 50px;
+}
+
+.price {
+  font-size: 1rem;
+}
+
+/* Modal Footer */
+.modal-footer {
+  padding: 0.5rem;
+}
+
+/* Adjust close button */
+.modal-header .close {
+  padding: 0.5rem;
+  margin: 0;
+}
+
 /*Kategorisida*/
+.page-header {
+  padding: 1rem;
+  margin-left: 9%;
+}
 
 #womens-clothing,
 #mens-clothing {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 25% 25% 25%;
+  gap: 3rem;
   justify-content: center;
-  align-items: flex-start;
-  gap: 2rem;
+  align-items: center;
 }
 #item-container {
-  width: 20%;
+  display: flex;
+  flex-direction: column;
+  width: 80%;
   height: 32rem;
   text-align: left;
 
   img {
+    align-self: center;
     height: 24rem;
-    max-width: 100%;
     display: block;
+  }
+
+  button {
+    align-self: flex-start;
   }
 }
 
 #ShoppingCart {
+  position: relative;
   font-size: 2rem;
   margin-left: auto;
   padding-right: 3%;
@@ -157,6 +249,7 @@ a:hover {
   display: flex;
   justify-content: space-evenly;
   margin-top: 20px;
+  margin-bottom: 20px;
   padding: 0 30px;
 }
 
@@ -309,7 +402,7 @@ input::-webkit-inner-spin-button {
   border-radius: 10px;
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
   text-align: center;
-  font-size: 24px;
+  font-size: 14px;
   z-index: 9999;
   opacity: 0;
   animation: fadeIn 2s forwards;
@@ -357,9 +450,9 @@ input::-webkit-inner-spin-button {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: var(--main-bg-color);
+  background-color: #edf0f2;
   color: var(--main-h-color);
-  border-bottom: 1px solid var(--navBorder);
+  border-bottom: 1px solid #c5cbd394;
 }
 
 .footer-top .content {
@@ -376,10 +469,12 @@ input::-webkit-inner-spin-button {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  padding-top: 30px;
 }
 
 .footer-column img {
-  width: 160px;
+  width: 200px;
+  margin-top: -50px;
 }
 
 .footer-column span,
@@ -406,7 +501,7 @@ input::-webkit-inner-spin-button {
 
 .footer-bottom {
   width: 100%;
-  background-color: var(--main-bg-color);
+  background-color: #edf0f2;
   padding: 10px 20px;
   display: flex;
   flex-wrap: wrap;
@@ -429,5 +524,54 @@ input::-webkit-inner-spin-button {
 
 .social-icons a:hover {
   color: var(--primary);
+}
+
+@media (max-width: 768px) {
+  .footer-top .content {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .footer-column {
+    flex: 1 1 100%;
+    margin: 0;
+  }
+
+  /* First column with logo */
+  .footer-column:first-child {
+    align-items: center;
+    text-align: center;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+  }
+
+  .social-icons {
+    justify-content: center;
+  }
+
+  .footer-icon-row {
+    justify-content: flex-start;
+    padding-left: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-icon-row {
+    justify-content: flex-start;
+  }
+
+  .social-icons {
+    gap: 15px;
+  }
+
+  .social-icons a {
+    font-size: 30px;
+    padding: 8px;
+  }
 }
 /* End footer styling */

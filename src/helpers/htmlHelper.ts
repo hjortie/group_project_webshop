@@ -41,6 +41,10 @@ export const createHtmlWomensClothes = (clothes: IwomensItem[]) => {
     //   localStorage.setItem("cart", JSON.stringify(cart));
 
     //   alert(`${item.title} added to cart!`);
+    // // });
+    //   updateCartItemCount(cart.length);
+
+    //   alert(`${item.title} added to cart!`);
     // });
   });
 };
@@ -83,3 +87,15 @@ export const createHtmlMensClothes = (clothes: ImensItem[]) => {
     });
   });
 };
+
+function updateCartItemCount(count: number): void {
+  const cartIcon = document.getElementById("ShoppingCart") as HTMLElement;
+
+  let cartBadge = cartIcon.querySelector("span");
+  if (!cartBadge) {
+    cartBadge = document.createElement("span");
+    cartIcon.appendChild(cartBadge);
+  }
+
+  cartBadge.textContent = count.toString();
+}

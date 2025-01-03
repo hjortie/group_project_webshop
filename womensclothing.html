@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
       rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
       integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
       crossorigin="anonymous"
@@ -18,19 +22,110 @@
         <a href="index.html"> <p class="logo">Klädkammaren</p></a>
         <a href="womensclothing.html">Kvinna</a>
         <a href="mensclothing.html">Man</a>
-        <a href="store.html" id="ShoppingCart">
-          <i class="fa-solid fa-bag-shopping"></i
-        ></a>
-      </nav>
 
+        <!-- bootstrap modal for shopping cart -->
+        <a
+          href="store.html"
+          id="ShoppingCart"
+          style="position: relative"
+          data-toggle="modal"
+          data-target="#cartModal"
+        >
+          <div class="right-side-nav">
+            <i class="fa-solid fa-bag-shopping"></i>
+            <span></span>
+          </div>
+        </a>
+
+        <div
+          class="modal left fade"
+          id="cartModal"
+          tabindex="-1"
+          role="dialog"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <div
+            class="modal-dialog modal-sm modal-dialog-centered"
+            role="document"
+          >
+            <div class="modal-content">
+              <div class="modal-header border-bottom-0">
+                <h5 class="modal-title" id="exampleModalLabel">
+                  Your Shopping Cart
+                </h5>
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <table class="table table-image">
+                  <thead>
+                    <tr>
+                      <th scope="col">Product</th>
+                      <th scope="col">Qty</th>
+                      <th scope="col">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        Vans Sk8-Hi MTE Shoes<br /><span class="text-muted"
+                          >Price: 89$</span
+                        >
+                      </td>
+                      <td class="qty">
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="input1"
+                          value="2"
+                        />
+                      </td>
+                      <td>
+                        <a href="#" class="btn btn-danger btn-sm">
+                          <i class="fa fa-times"></i>
+                        </a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div class="d-flex justify-content-between">
+                  <h5>Total: <span class="price text-success">89$</span></h5>
+                </div>
+              </div>
+              <div
+                class="modal-footer border-top-0 d-flex justify-content-between"
+              >
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-dismiss="modal"
+                >
+                  Close
+                </button>
+                <button type="button" class="btn btn-success">
+                  <a href="store.html">Checkout</a>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- bootstrap modal for shopping cart end -->
+      </nav>
+      <h1 class="page-header">Kläder för kvinnor</h1>
       <div id="womens-clothing"></div>
 
       <div class="footer">
         <div class="footer-top">
           <div class="content">
             <div class="footer-column">
-              <img src="logo.png" alt="logo" />
-              <span>Mer info för dig...</span>
+              <img src="src/images/Logo_v3.png" alt="logo" />
             </div>
             <div class="footer-column">
               <a href="/">Home</a>
@@ -70,5 +165,7 @@
       </div>
     </div>
     <script type="module" src="/src/main.ts"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   </body>
 </html>
