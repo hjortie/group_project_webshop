@@ -5,6 +5,6 @@ export const getClothes = async () => {
   const response = await fetch(
     "https://fakestoreapi.com/products/category/women's%20clothing"
   );
-  const result: Article = await response.json();
+  const result: Article[] = await response.json();
   return result;
 };
