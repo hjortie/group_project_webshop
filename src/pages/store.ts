@@ -1,4 +1,4 @@
-import { getDataForModal } from "../main";
+import { getDataForModal } from "../helpers/htmlHelper";
 
 function store(): void {
   loadCartFromLocalStorage();
