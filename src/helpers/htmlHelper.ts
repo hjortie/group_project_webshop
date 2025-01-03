@@ -1,7 +1,7 @@
-import { ImensItem } from "../models/ImensItem";
-import { IwomensItem } from "../models/IwomensItem";
+import { getDataForModal } from "../main";
+import { Article } from "../services/article";
 
-export const createHtmlWomensClothes = (clothes: IwomensItem[]) => {
+export const createHtmlWomensClothes = (clothes: Article[]) => {
   clothes.forEach((item) => {
     const itemContainer = document.createElement("div");
     const image = document.createElement("img");
@@ -27,6 +27,10 @@ export const createHtmlWomensClothes = (clothes: IwomensItem[]) => {
         image: item.image,
         title: item.title,
         price: item.price,
+        quantity: item.quantity + 1,
+        sizeS: item.isS,
+        sizeM: item.isM,
+        sizeL: item.isL,
       };
 
       const cart = JSON.parse(localStorage.getItem("cart") || "[]");
@@ -36,13 +40,14 @@ export const createHtmlWomensClothes = (clothes: IwomensItem[]) => {
       localStorage.setItem("cart", JSON.stringify(cart));
 
       updateCartItemCount(cart.length);
+      getDataForModal();
 
       alert(`${item.title} added to cart!`);
     });
   });
 };
 
-export const createHtmlMensClothes = (clothes: ImensItem[]) => {
+export const createHtmlMensClothes = (clothes: Article[]) => {
   clothes.forEach((item) => {
     const itemContainer = document.createElement("div");
     const image = document.createElement("img");
@@ -64,7 +69,6 @@ export const createHtmlMensClothes = (clothes: ImensItem[]) => {
     document.getElementById("mens-clothing")?.appendChild(itemContainer);
 
     buyButton.addEventListener("click", () => {
-    
       const selectedItem = {
         image: item.image,
         title: item.title,
@@ -76,12 +80,12 @@ export const createHtmlMensClothes = (clothes: ImensItem[]) => {
       cart.push(selectedItem);
 
       localStorage.setItem("cart", JSON.stringify(cart));
+      getDataForModal();
 
       alert(`${item.title} added to cart!`);
     });
   });
 };
-
 
 function updateCartItemCount(count: number): void {
   const cartIcon = document.getElementById("ShoppingCart") as HTMLElement;
