@@ -61,26 +61,22 @@ a:hover {
   text-decoration: none;
 }
 
-.right-side-nav{
-  display: flex; 
-  flex-direction: column; 
+.right-side-nav {
+  display: flex;
+  flex-direction: column;
   align-items: center;
 }
 
 #ShoppingCart i {
-  font-size: 30px; 
+  font-size: 30px;
   color: white;
 }
 
 #ShoppingCart span {
-  font-size: 15px; 
+  font-size: 15px;
   color: rgb(255, 255, 255);
   font-weight: bolder;
 }
-
-
-
-
 
 /* Modal customization */
 .modal.left .modal-dialog {
@@ -113,7 +109,8 @@ a:hover {
 
 /* Table adjustments */
 .table-image {
-  td, th {
+  td,
+  th {
     font-size: 0.9rem;
     text-align: left;
   }
@@ -138,38 +135,45 @@ a:hover {
   margin: 0;
 }
 
-
 /*Kategorisida*/
+.page-header {
+  padding: 1rem;
+  margin-left: 9%;
+}
 
 #womens-clothing,
 #mens-clothing {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 25% 25% 25%;
+  gap: 3rem;
   justify-content: center;
-  align-items: flex-start;
-  gap: 2rem;
+  align-items: center;
 }
 #item-container {
-  width: 20%;
+  display: flex;
+  flex-direction: column;
+  width: 80%;
   height: 32rem;
   text-align: left;
 
   img {
+    align-self: center;
     height: 24rem;
-    max-width: 100%;
     display: block;
+  }
+
+  button {
+    align-self: flex-start;
   }
 }
 
 #ShoppingCart {
-  position: relative;;
+  position: relative;
   font-size: 2rem;
   margin-left: auto;
   padding-right: 3%;
   color: white;
 }
-
 
 /*Hero section*/
 #brand {
