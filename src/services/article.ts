@@ -4,18 +4,12 @@ export class Article {
     public price: number,
     public image: string,
     public description: string,
-    public quantity: number,
-    public isS: boolean,
-    public isM: boolean,
-    public isL: boolean
+    public quantity: number
   ) {
     this.title = title;
     this.price = price;
     this.image = image;
     this.description = description;
     this.quantity = quantity;
-    this.isS = isS;
-    this.isM = isM;
-    this.isL = isL;
   }
 }

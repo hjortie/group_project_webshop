@@ -21,7 +21,6 @@ function createHtmlOneProduct() {
   const price = document.createElement("p");
   const description = document.createElement("p"); // Om beskrivning finns i produktdata
   const buyButton = document.createElement("button");
-
   descriptionContainer.id = "description-container";
   imageContainer.id = "image-container";
 
@@ -36,15 +35,37 @@ function createHtmlOneProduct() {
   descriptionContainer.append(title, price, description, buyButton);
   productSection?.append(imageContainer, descriptionContainer);
 
+  // Skapa <select>-elementet
+  const select = document.createElement("select");
+  select.id = "choose-size";
+
+  // Skapa alternativ för <select>
+  const options = [
+    { value: "S", text: "Smal", selected: true },
+    { value: "M", text: "Medium" },
+    { value: "L", text: "Large" },
+  ];
+
+  // Lägg till varje <option> i <select>
+  options.forEach((optionData) => {
+    const option = document.createElement("option");
+    option.value = optionData.value;
+    option.textContent = optionData.text;
+    if (optionData.selected) {
+      option.selected = true;
+    }
+    select.appendChild(option);
+  });
+
+  // Lägg till <select> i DOM
+  descriptionContainer.appendChild(select);
+
   buyButton.addEventListener("click", () => {
     const selectedItem = {
       image: product.image,
       title: product.title,
       price: product.price,
       quantity: product.quantity + 1,
-      sizeS: product.isS,
-      sizeM: product.isM,
-      sizeL: product.isL,
     };
 
     const cart = JSON.parse(localStorage.getItem("cart") || "[]");
