@@ -1,4 +1,6 @@
+import { getDataForModal } from "../helpers/htmlHelper";
 import { Article } from "../services/article";
+import { updateCartItemCount } from "../helpers/htmlHelper";
 
 function createHtmlOneProduct() {
   const productData = localStorage.getItem("selectedProduct");
@@ -39,6 +41,10 @@ function createHtmlOneProduct() {
       image: product.image,
       title: product.title,
       price: product.price,
+      quantity: product.quantity + 1,
+      sizeS: product.isS,
+      sizeM: product.isM,
+      sizeL: product.isL,
     };
 
     const cart = JSON.parse(localStorage.getItem("cart") || "[]");
@@ -46,6 +52,9 @@ function createHtmlOneProduct() {
     cart.push(selectedItem);
 
     localStorage.setItem("cart", JSON.stringify(cart));
+
+    updateCartItemCount(cart.length);
+    getDataForModal();
 
     alert(`${product.title} added to cart!`);
   });

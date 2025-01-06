@@ -69,48 +69,7 @@ export const createHtmlWomensClothes = (clothes: Article[]) => {
     itemContainer.addEventListener("click", () => {
       localStorage.setItem("selectedProduct", JSON.stringify(item));
       window.location.href = "product-page.html";
-    buyButton.addEventListener("click", () => {
-      const selectedItem = {
-        image: item.image,
-        title: item.title,
-        price: item.price,
-        quantity: item.quantity + 1,
-        sizeS: item.isS,
-        sizeM: item.isM,
-        sizeL: item.isL,
-      };
-
-      const cart = JSON.parse(localStorage.getItem("cart") || "[]");
-
-      cart.push(selectedItem);
-
-      localStorage.setItem("cart", JSON.stringify(cart));
-
-      updateCartItemCount(cart.length);
-      getDataForModal();
-
-      alert(`${item.title} added to cart!`);
     });
-
-    // buyButton.addEventListener("click", () => {
-    //   const selectedItem = {
-    //     image: item.image,
-    //     title: item.title,
-    //     price: item.price,
-    //   };
-
-    //   const cart = JSON.parse(localStorage.getItem("cart") || "[]");
-
-    //   cart.push(selectedItem);
-
-    //   localStorage.setItem("cart", JSON.stringify(cart));
-
-    //   alert(`${item.title} added to cart!`);
-    // // });
-    //   updateCartItemCount(cart.length);
-
-    //   alert(`${item.title} added to cart!`);
-    // });
   });
 };
 
@@ -154,7 +113,7 @@ export const createHtmlMensClothes = (clothes: Article[]) => {
   });
 };
 
-function updateCartItemCount(count: number): void {
+export function updateCartItemCount(count: number): void {
   const cartIcon = document.getElementById("ShoppingCart") as HTMLElement;
 
   let cartBadge = cartIcon.querySelector("span");
