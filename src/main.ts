@@ -1,6 +1,7 @@
 import {
   createHtmlMensClothes,
   createHtmlWomensClothes,
+  getDataForModal,
 } from "./helpers/htmlHelper";
 import { Article } from "./services/article";
 import { getMensClothes } from "./services/mensClothing";
@@ -40,3 +41,4 @@ const newMensClothes = mensClothes.map(
 
 createHtmlWomensClothes(newWomensClothes);
 createHtmlMensClothes(newMensClothes);
+getDataForModal();

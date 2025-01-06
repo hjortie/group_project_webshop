@@ -1,3 +1,5 @@
+import { getDataForModal } from "../helpers/htmlHelper";
+
 function store(): void {
   loadCartFromLocalStorage();
 
@@ -5,6 +7,8 @@ function store(): void {
     "btn-purchase"
   ) as HTMLButtonElement;
   purchaseButton.addEventListener("click", purchaseClicked);
+
+  getDataForModal();
 }
 store();
 
