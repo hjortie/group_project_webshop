@@ -90,7 +90,7 @@ a:hover {
 }
 
 .modal.left .modal-dialog.modal-sm {
-  max-width: 300px;
+  max-width: 350px;
 }
 
 .modal.left .modal-content {
@@ -121,14 +121,13 @@ a:hover {
   flex-direction: row;
   max-width: fit-content;
 
+  input {
+    max-width: 40px;
+  }
   .increase-btn-modal,
   .decrease-btn-modal {
     width: 40px;
   }
-}
-
-.qty input {
-  max-width: 50px;
 }
 
 .price {

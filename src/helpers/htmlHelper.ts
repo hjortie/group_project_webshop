@@ -33,6 +33,8 @@ export function getDataForModal() {
         item.quantity -= 1;
         localStorage.setItem("cart", JSON.stringify(cartItems));
         itemQty.value = item.quantity.toString();
+        total -= item.price;
+        getDataForModal();
       } else {
         cartItems.splice(cartItems.indexOf(item), 1);
         localStorage.setItem("cart", JSON.stringify(cartItems));
@@ -47,6 +49,8 @@ export function getDataForModal() {
       item.quantity += 1;
       localStorage.setItem("cart", JSON.stringify(cartItems));
       itemQty.value = item.quantity.toString();
+      total += item.price;
+      getDataForModal();
     });
 
     itemName.innerText = item.title;
@@ -65,7 +69,7 @@ export function getDataForModal() {
     cartItemContainer.appendChild(cartRow);
 
     const cost = document.getElementById("total-cost") as HTMLSpanElement;
-    total += item.price;
+    total += item.price * item.quantity;
     cost.innerText = `$${total.toString()}`;
   });
 }
