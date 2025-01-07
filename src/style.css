@@ -362,9 +362,7 @@ input::-webkit-inner-spin-button {
 }
 
 .btn.btn-danger {
-  position: absolute;
-  right: 0;
-  bottom: 0;
+  padding-top: 0;
   background-color: transparent;
   padding: 5px;
   margin: 10px 20px;
