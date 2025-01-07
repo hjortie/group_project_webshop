@@ -29,10 +29,14 @@ export function getDataForModal() {
     decrementBtn.className = "decrease-btn-modal";
     decrementBtn.innerText = "-";
     decrementBtn.addEventListener("click", () => {
-      if (item.quantity > 0) {
+      if (item.quantity > 1) {
         item.quantity -= 1;
         localStorage.setItem("cart", JSON.stringify(cartItems));
         itemQty.value = item.quantity.toString();
+      } else {
+        cartItems.splice(cartItems.indexOf(item), 1);
+        localStorage.setItem("cart", JSON.stringify(cartItems));
+        getDataForModal();
       }
     });
     itemQty.type = "text";
