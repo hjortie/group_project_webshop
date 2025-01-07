@@ -116,6 +116,17 @@ a:hover {
   }
 }
 
+.qty-container {
+  display: flex;
+  flex-direction: row;
+  max-width: fit-content;
+
+  .increase-btn-modal,
+  .decrease-btn-modal {
+    width: 40px;
+  }
+}
+
 .qty input {
   max-width: 50px;
 }

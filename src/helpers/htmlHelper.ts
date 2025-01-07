@@ -15,16 +15,35 @@ export function getDataForModal() {
 
     const itemName = document.createElement("p");
     const itemPrice = document.createElement("p");
+    const decrementBtn = document.createElement("button");
     const itemQty = document.createElement("input");
+    const incrementBtn = document.createElement("button");
 
     const btnContent = `<a href="#" class="btn btn-danger btn-sm">
 <i class="fa fa-times"></i>
 </a>`;
+    dltBtn.innerHTML = btnContent;
     cartRow.className = "cart-row";
+    cartItemQty.className = "qty-container";
     itemPrice.className = "text-muted";
+    decrementBtn.className = "decrease-btn-modal";
+    decrementBtn.innerText = "-";
+    decrementBtn.addEventListener("click", () => {
+      if (item.quantity > 0) {
+        item.quantity -= 1;
+        localStorage.setItem("cart", JSON.stringify(cartItems));
+        itemQty.value = item.quantity.toString();
+      }
+    });
     itemQty.type = "text";
     itemQty.className = "form-control";
-    dltBtn.innerHTML = btnContent;
+    incrementBtn.className = "increase-btn-modal";
+    incrementBtn.innerText = "+";
+    incrementBtn.addEventListener("click", () => {
+      item.quantity += 1;
+      localStorage.setItem("cart", JSON.stringify(cartItems));
+      itemQty.value = item.quantity.toString();
+    });
 
     itemName.innerText = item.title;
     itemPrice.innerText = `$${item.price.toString()}`;
@@ -32,7 +51,9 @@ export function getDataForModal() {
 
     itemContainer.appendChild(itemName);
     itemContainer.appendChild(itemPrice);
+    cartItemQty.appendChild(decrementBtn);
     cartItemQty.appendChild(itemQty);
+    cartItemQty.appendChild(incrementBtn);
     cartRow.appendChild(itemContainer);
     cartRow.appendChild(cartItemQty);
     cartRow.appendChild(dltBtn);
