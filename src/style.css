@@ -90,7 +90,7 @@ a:hover {
 }
 
 .modal.left .modal-dialog.modal-sm {
-  max-width: 300px;
+  max-width: 350px;
 }
 
 .modal.left .modal-content {
@@ -115,9 +115,18 @@ a:hover {
     text-align: left;
   }
 }
+.qty-container {
+  display: flex;
+  flex-direction: row;
 
-.qty input {
-  max-width: 50px;
+  .decrease-btn-modal,
+  .increase-btn-modal {
+    width: 30px;
+  }
+
+  input {
+    width: 40px;
+  }
 }
 
 .price {
@@ -362,11 +371,9 @@ input::-webkit-inner-spin-button {
 }
 
 .btn.btn-danger {
-  position: absolute;
-  right: 0;
-  bottom: 0;
   background-color: transparent;
   padding: 5px;
+  padding-top: 0;
   margin: 10px 20px;
   border: none;
   color: var(--primary);
