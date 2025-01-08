@@ -1,19 +1,18 @@
 import { getDataForModal } from "../helpers/htmlHelper";
 
-function store(): void {
+const store = (): void => {
   loadCartFromLocalStorage();
 
   const purchaseButton = document.getElementById(
     "btn-purchase"
   ) as HTMLButtonElement;
   purchaseButton.addEventListener("click", purchaseClicked);
+
   updateCartTotal();
-
   getDataForModal();
-}
-store();
+};
 
-function loadCartFromLocalStorage(): void {
+const loadCartFromLocalStorage = (): void => {
   const cartItems = JSON.parse(localStorage.getItem("cart") || "[]");
   const cartContainer = document.getElementById("cart-items") as HTMLElement;
   cartContainer.innerHTML = "";
@@ -68,7 +67,6 @@ function loadCartFromLocalStorage(): void {
       "decrement"
     )[0] as HTMLButtonElement;
 
-    // update the localStorage when quantity changes
     incrementButton.addEventListener("click", () => {
       const currentValue = +quantityInput.value;
       quantityInput.value = (currentValue + 1).toString();
@@ -91,11 +89,9 @@ function loadCartFromLocalStorage(): void {
       }
     });
   }
-
-  // updateCartTotal();
 }
 
-function purchaseClicked(event: Event): void {
+const purchaseClicked = (event: Event): void => {
   event.preventDefault();
   const name = document.getElementById("name") as HTMLInputElement;
   const address = document.getElementById("address") as HTMLInputElement;
@@ -118,6 +114,7 @@ function purchaseClicked(event: Event): void {
     }, 5000);
   }
 }
+
 function checkFormFields(
   name: HTMLInputElement,
   address: HTMLInputElement,
@@ -149,7 +146,7 @@ function checkFormFields(
   return true;
 }
 
-function removeCartItem(index: number): void {
+const removeCartItem = (index: number): void => {
   const cart = JSON.parse(localStorage.getItem("cart") || "[]");
 
   cart.splice(index, 1);
@@ -160,7 +157,7 @@ function removeCartItem(index: number): void {
   updateCartTotal();
 }
 
-function quantityChanged(event: Event): void {
+const quantityChanged = (event: Event): void => {
   const input = event.target as HTMLInputElement;
 
   if (input.value === "" || Number(input.value) <= 0) {
@@ -170,7 +167,7 @@ function quantityChanged(event: Event): void {
   updateCartTotal();
 }
 
-function updateCartTotal(): void {
+const updateCartTotal = (): void => {
   const cartItemContainer = document.getElementById(
     "cart-items"
   ) as HTMLElement;
@@ -201,3 +198,5 @@ function updateCartTotal(): void {
   ) as HTMLElement;
   totalPriceElement.innerText = `$${total}`;
 }
+
+store();
