@@ -363,6 +363,8 @@ a:hover {
   flex-direction: column;
   justify-content: flex-start;
   gap: 10px;
+  flex-grow: 1;
+
 }
 
 .cart-size label,
@@ -419,6 +421,7 @@ input::-webkit-inner-spin-button {
   color: var(--primary);
   cursor: pointer;
   margin-top: auto;
+  margin-right: 10px;
 }
 
 .btn.btn-danger:hover {
