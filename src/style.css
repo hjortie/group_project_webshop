@@ -580,5 +580,15 @@ input::-webkit-inner-spin-button {
     font-size: 30px;
     padding: 8px;
   }
+
+  .main-container {
+    display: block;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 0 30px;
+  }
+  .payment-form {
+    width: 100%;
+  }
 }
 /* End footer styling */
