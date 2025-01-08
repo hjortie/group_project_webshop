@@ -83,6 +83,7 @@ function createHtmlOneProduct() {
     } else {
       cart.push(selectedItem);
     }
+    getDataForModal();
     localStorage.setItem("cart", JSON.stringify(cart));
   });
 }
