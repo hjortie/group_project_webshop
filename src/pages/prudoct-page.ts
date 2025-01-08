@@ -61,15 +61,16 @@ function createHtmlOneProduct() {
   buyButton.addEventListener("click", () => {
     const selectedSize = select.value;
 
-    const selectedItem: CartItem = {
+    const selectedItem: Article = {
       title: product.title,
       price: product.price,
+      description: product.description,
       image: product.image,
       size: selectedSize,
       quantity: 1,
     };
 
-    const cart: CartItem[] = JSON.parse(localStorage.getItem("cart") || "[]");
+    const cart: Article[] = JSON.parse(localStorage.getItem("cart") || "[]");
 
     const existingItem = cart.find(
       (item) => item.title === selectedItem.title && item.size === selectedSize
