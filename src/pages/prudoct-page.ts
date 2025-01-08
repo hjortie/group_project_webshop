@@ -1,6 +1,7 @@
 import { getDataForModal } from "../helpers/htmlHelper";
 import { Article } from "../services/article";
 import { updateCartItemCount } from "../helpers/htmlHelper";
+import { CartItem } from "../models/cartitem";
 
 function createHtmlOneProduct() {
   const productData = localStorage.getItem("selectedProduct");
@@ -10,8 +11,6 @@ function createHtmlOneProduct() {
 
   const product: Article = JSON.parse(productData);
 
-  console.log(product);
-
   // Skapa dynamisk HTML
   const productSection = document.getElementById("product-section");
   const descriptionContainer = document.createElement("div");
@@ -19,9 +18,8 @@ function createHtmlOneProduct() {
   const image = document.createElement("img");
   const title = document.createElement("h2");
   const price = document.createElement("p");
-  const description = document.createElement("p"); // Om beskrivning finns i produktdata
+  const description = document.createElement("p");
   const buyButton = document.createElement("button");
-
   descriptionContainer.id = "description-container";
   imageContainer.id = "image-container";
 
@@ -36,27 +34,53 @@ function createHtmlOneProduct() {
   descriptionContainer.append(title, price, description, buyButton);
   productSection?.append(imageContainer, descriptionContainer);
 
+  // Skapa <select>-elementet
+  const select = document.createElement("select");
+  select.id = "choose-size";
+
+  // Skapa alternativ för <select>
+  const options = [
+    { value: "S", text: "Small", selected: true },
+    { value: "M", text: "Medium" },
+    { value: "L", text: "Large" },
+  ];
+
+  options.forEach((optionData) => {
+    const option = document.createElement("option");
+    option.value = optionData.value;
+    option.textContent = optionData.text;
+    if (optionData.selected) {
+      option.selected = true;
+    }
+    select.appendChild(option);
+  });
+
+  descriptionContainer.appendChild(select);
+
+  // Lägg till klickhändelse för köpknappen
   buyButton.addEventListener("click", () => {
-    const selectedItem = {
-      image: product.image,
+    const selectedSize = select.value;
+
+    const selectedItem: CartItem = {
       title: product.title,
       price: product.price,
-      quantity: product.quantity + 1,
-      sizeS: product.isS,
-      sizeM: product.isM,
-      sizeL: product.isL,
+      image: product.image,
+      size: selectedSize,
+      quantity: 1,
     };
 
-    const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+    const cart: CartItem[] = JSON.parse(localStorage.getItem("cart") || "[]");
 
-    cart.push(selectedItem);
+    const existingItem = cart.find(
+      (item) => item.title === selectedItem.title && item.size === selectedSize
+    );
 
+    if (existingItem) {
+      existingItem.quantity += 1;
+    } else {
+      cart.push(selectedItem);
+    }
     localStorage.setItem("cart", JSON.stringify(cart));
-
-    updateCartItemCount(cart.length);
-    getDataForModal();
-
-    alert(`${product.title} added to cart!`);
   });
 }
 
