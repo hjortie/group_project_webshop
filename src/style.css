@@ -307,7 +307,7 @@ a:hover {
   margin-bottom: 10px;
   padding: 10px;
   border: 1px solid var(--navBorder);
-  align-items: flex-start;
+  align-items: center;
   gap: 15px;
 }
 
@@ -372,12 +372,10 @@ input::-webkit-inner-spin-button {
 
 .btn.btn-danger {
   background-color: transparent;
-  padding: 5px;
-  padding-top: 0;
-  margin: 10px 20px;
   border: none;
   color: var(--primary);
   cursor: pointer;
+  margin-top: auto;
 }
 
 .btn.btn-danger:hover {
@@ -440,6 +438,60 @@ input::-webkit-inner-spin-button {
     padding: 5rem;
   }
 }
+
+.buy-btn {
+  background: linear-gradient(135deg, #6e8efb, #a777e3);
+  color: #fff; 
+  font-size: 16px; 
+  font-weight: bold; 
+  padding: 12px 24px; 
+  border: none; 
+  border-radius: 8px; 
+  cursor: pointer; 
+  transition: all 0.6s ease; 
+  text-transform: uppercase; 
+}
+
+.buy-btn:hover {
+  background: linear-gradient(135deg, #a777e3, #6e8efb); 
+  transform: translateY(-2px); 
+}
+
+.buy-btn:active {
+  transform: translateY(0);
+  background: rgb(0, 247, 0); 
+}
+
+#choose-size {
+  background: linear-gradient(135deg, #6e8efb, #a777e3); 
+  color: #fff; 
+  font-size: 16px; 
+  font-weight: bold;
+  padding: 12px 12px 12px 20px; 
+  border: none; 
+  border-radius: 8px; 
+  cursor: pointer; 
+  transition: all 0.6s ease; 
+  appearance: none; /* Remove default styling */
+  text-transform: uppercase; 
+  margin-left: 20px;
+}
+
+#choose-size:hover {
+  background: linear-gradient(135deg, #a777e3, #6e8efb);
+  transform: translateY(-2px); 
+}
+
+#choose-size:focus {
+  outline: 2px solid #a777e3; 
+  transform: translateY(0);
+}
+
+#choose-size option {
+  color: #1b1b1b; 
+}
+
+/* End product-page */
 
 /* footer styling */
 
@@ -566,6 +618,7 @@ input::-webkit-inner-spin-button {
     padding-left: 20px;
   }
 }
+/* End footer styling */
 
 @media (max-width: 480px) {
   .footer-icon-row {
@@ -590,5 +643,20 @@ input::-webkit-inner-spin-button {
   .payment-form {
     width: 100%;
   }
+
+  .section-header {
+    margin-top: 15px;
+  }
+  .cart-items {
+    margin-top: 5px;
+  }
+
+  .cart-quantity-input {
+    width: 30px;
+  }
+
+  .btn.btn-danger {
+    padding: 0px 20px 0px 0px;
+  }
 }
-/* End footer styling */
+

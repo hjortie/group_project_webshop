@@ -29,6 +29,7 @@ function createHtmlOneProduct() {
   price.textContent = `${product.price} USD`;
   description.textContent = product.description || "No description available.";
   buyButton.innerHTML = "Lägg till i varukorg";
+  buyButton.classList.add("buy-btn");
 
   imageContainer.appendChild(image);
   descriptionContainer.append(title, price, description, buyButton);
