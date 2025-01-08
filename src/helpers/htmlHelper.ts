@@ -15,6 +15,7 @@ export function getDataForModal() {
 
     const itemName = document.createElement("p");
     const itemPrice = document.createElement("p");
+    const itemSize = document.createElement("p");
     const decrementBtn = document.createElement("button");
     const itemQty = document.createElement("input");
     const incrementBtn = document.createElement("button");
@@ -23,9 +24,15 @@ export function getDataForModal() {
 <i class="fa fa-times"></i>
 </a>`;
     dltBtn.innerHTML = btnContent;
+    dltBtn.addEventListener("click", () => {
+      cartItems.splice(cartItems.indexOf(item), 1);
+      localStorage.setItem("cart", JSON.stringify(cartItems));
+      getDataForModal();
+    });
     cartRow.className = "cart-row";
     cartItemQty.className = "qty-container";
     itemPrice.className = "text-muted";
+    itemSize.className = "text-muted";
     decrementBtn.className = "decrease-btn-modal";
     decrementBtn.innerText = "-";
     decrementBtn.addEventListener("click", () => {
@@ -54,10 +61,12 @@ export function getDataForModal() {
     });
 
     itemName.innerText = item.title;
+    itemSize.innerText = `Size: ${item.size}`;
     itemPrice.innerText = `$${item.price.toString()}`;
     itemQty.value = item.quantity.toString();
 
     itemContainer.appendChild(itemName);
+    itemContainer.appendChild(itemSize);
     itemContainer.appendChild(itemPrice);
     cartItemQty.appendChild(decrementBtn);
     cartItemQty.appendChild(itemQty);
