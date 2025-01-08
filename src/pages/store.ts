@@ -7,6 +7,7 @@ function store(): void {
     "btn-purchase"
   ) as HTMLButtonElement;
   purchaseButton.addEventListener("click", purchaseClicked);
+  updateCartTotal();
 
   getDataForModal();
 }
