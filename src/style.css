@@ -158,6 +158,7 @@ a:hover {
   justify-content: center;
   align-items: center;
 }
+
 #item-container {
   display: flex;
   flex-direction: column;
@@ -171,9 +172,21 @@ a:hover {
     height: 24rem;
     display: block;
   }
+}
 
-  button {
-    align-self: flex-start;
+/*Mobilanpassning, kategorisida*/
+
+@media (max-width: 768px) {
+  .page-header {
+    margin: auto;
+    width: 100%;
+    text-align: center;
+  }
+
+  #womens-clothing,
+  #mens-clothing {
+    display: flex;
+    flex-direction: column;
   }
 }
 
