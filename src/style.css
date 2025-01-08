@@ -213,7 +213,21 @@ a:hover {
 
 #brandImage {
   height: 60%;
-  background-image: url("src/images/webshop_image.png");
+  display: flex;
+  overflow: hidden;
+}
+
+.left-image {
+  flex: 1;
+  background-image: url("src/images/brandImg_left.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.right-image {
+  flex: 1;
+  background-image: url("src/images/brandImg_right.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -263,6 +277,19 @@ a:hover {
 
   .brandNamn h1 {
     font-size: 2.5rem;
+  }
+
+  #brandImage {
+    height: 60%;
+  }
+
+  .right-image {
+    display: none;
+  }
+
+  .left-image {
+    flex: none;
+    width: 100%;
   }
 }
 /*End Hero section*/
@@ -455,54 +482,54 @@ input::-webkit-inner-spin-button {
 
 .buy-btn {
   background: linear-gradient(135deg, #6e8efb, #a777e3);
-  color: #fff; 
-  font-size: 16px; 
-  font-weight: bold; 
-  padding: 12px 24px; 
-  border: none; 
-  border-radius: 8px; 
-  cursor: pointer; 
-  transition: all 0.6s ease; 
-  text-transform: uppercase; 
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.6s ease;
+  text-transform: uppercase;
 }
 
 .buy-btn:hover {
-  background: linear-gradient(135deg, #a777e3, #6e8efb); 
-  transform: translateY(-2px); 
+  background: linear-gradient(135deg, #a777e3, #6e8efb);
+  transform: translateY(-2px);
 }
 
 .buy-btn:active {
   transform: translateY(0);
-  background: rgb(0, 247, 0); 
+  background: rgb(0, 247, 0);
 }
 
 #choose-size {
-  background: linear-gradient(135deg, #6e8efb, #a777e3); 
-  color: #fff; 
-  font-size: 16px; 
+  background: linear-gradient(135deg, #6e8efb, #a777e3);
+  color: #fff;
+  font-size: 16px;
   font-weight: bold;
-  padding: 12px 12px 12px 20px; 
-  border: none; 
-  border-radius: 8px; 
-  cursor: pointer; 
-  transition: all 0.6s ease; 
+  padding: 12px 12px 12px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.6s ease;
   appearance: none; /* Remove default styling */
-  text-transform: uppercase; 
+  text-transform: uppercase;
   margin-left: 20px;
 }
 
 #choose-size:hover {
   background: linear-gradient(135deg, #a777e3, #6e8efb);
-  transform: translateY(-2px); 
+  transform: translateY(-2px);
 }
 
 #choose-size:focus {
-  outline: 2px solid #a777e3; 
+  outline: 2px solid #a777e3;
   transform: translateY(0);
 }
 
 #choose-size option {
-  color: #1b1b1b; 
+  color: #1b1b1b;
 }
 
 /* End product-page */
@@ -673,4 +700,3 @@ input::-webkit-inner-spin-button {
     padding: 0px 20px 0px 0px;
   }
 }
-
