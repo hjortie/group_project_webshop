@@ -219,15 +219,15 @@ a:hover {
 
 .left-image {
   flex: 1;
-  background-image: url("src/images/brandImg_left");
+  background-image: url("src/images/brandImg_left.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 }
 
-.left-image {
+.right-image {
   flex: 1;
-  background-image: url("src/images/brandImg_right");
+  background-image: url("src/images/brandImg_right.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
