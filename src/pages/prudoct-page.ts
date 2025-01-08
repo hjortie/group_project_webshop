@@ -40,9 +40,10 @@ function createHtmlOneProduct() {
 
   // Skapa alternativ för <select>
   const options = [
-    { value: "S", text: "Small", selected: true },
-    { value: "M", text: "Medium" },
-    { value: "L", text: "Large" },
+    { value: "S", text: "S", selected: true },
+    { value: "M", text: "M" },
+    { value: "L", text: "L" },
+    { value: "XL", text: "XL" },
   ];
 
   options.forEach((optionData) => {

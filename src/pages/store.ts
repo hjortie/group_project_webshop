@@ -28,26 +28,18 @@ function loadCartFromLocalStorage(): void {
         <div class="cart-item-details">
           <span class="cart-item-title">${item.title}</span>
           <span class="cart-price" id="cart-price">${item.price}</span>
+         
           <div class="cart-size">
-            <label for="size">Size:</label>
-            <select id="size">
-              <option>S</option>
-              <option>M</option>
-              <option selected>L</option>
-              <option>XL</option>
-              <option>XXL</option>
-              <option>XXXL</option>
-              <option>XXXXL</option>
-              <option>XXXXXL</option>
-              <option>XXXXXXL</option>
-            </select>
+            <label>Size: ${item.size}</label>
           </div>
+
           <div class="cart-quantity">
             <label for="quantity">Quantity:</label>
             <button class="quantity-btn decrement" type="button">-</button>
-            <input id="quantity" class="cart-quantity-input" type="number" value="1" min="1">
+            <input id="quantity" class="cart-quantity-input" type="number" value="${item.quantity}" min="1">
             <button class="quantity-btn increment" type="button">+</button>
           </div>
+
         </div>
         <button class="btn btn-danger" id="btn-danger" type="button">
           <i class="fa-solid fa-trash-can"></i>
@@ -75,24 +67,31 @@ function loadCartFromLocalStorage(): void {
       "decrement"
     )[0] as HTMLButtonElement;
 
-    // Inputfields are strings by default, + Converts string to number, toString() converts number back to string
+    // update the localStorage when quantity changes
     incrementButton.addEventListener("click", () => {
       const currentValue = +quantityInput.value;
       quantityInput.value = (currentValue + 1).toString();
+
+      cartItems[i].quantity = currentValue + 1;
+      localStorage.setItem("cart", JSON.stringify(cartItems));
+
       updateCartTotal();
     });
 
-    // Add "?" to ensure the value doesn't go below 1
     decrementButton.addEventListener("click", () => {
       const currentValue = +quantityInput.value;
-      quantityInput.value = (
-        currentValue > 1 ? currentValue - 1 : currentValue
-      ).toString();
-      updateCartTotal();
+      if (currentValue > 1) {
+        quantityInput.value = (currentValue - 1).toString();
+
+        cartItems[i].quantity = currentValue - 1;
+        localStorage.setItem("cart", JSON.stringify(cartItems));
+
+        updateCartTotal();
+      }
     });
   }
 
-  updateCartTotal();
+  // updateCartTotal();
 }
 
 function purchaseClicked(event: Event): void {
