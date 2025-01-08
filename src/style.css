@@ -164,6 +164,7 @@ a:hover {
   width: 80%;
   height: 32rem;
   text-align: left;
+  cursor: pointer;
 
   img {
     align-self: center;
