@@ -24,6 +24,11 @@ export function getDataForModal() {
 <i class="fa fa-times"></i>
 </a>`;
     dltBtn.innerHTML = btnContent;
+    dltBtn.addEventListener("click", () => {
+      cartItems.splice(cartItems.indexOf(item), 1);
+      localStorage.setItem("cart", JSON.stringify(cartItems));
+      getDataForModal();
+    });
     cartRow.className = "cart-row";
     cartItemQty.className = "qty-container";
     itemPrice.className = "text-muted";
