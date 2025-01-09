@@ -19,15 +19,10 @@ export function getDataForModal() {
     const decrementBtn = document.createElement("button");
     const itemQty = document.createElement("input");
     const incrementBtn = document.createElement("button");
+    const deleteBtn = document.createElement("i");
 
-    const btnContent = `<a href="#" class="btn btn-danger btn-sm">
-<i class="fa fa-times"></i>
-</a>`;
-    dltBtnContainer.innerHTML = btnContent;
-    const dltBtn = document.getElementsByClassName(
-      "btn-danger"
-    )[0] as HTMLAnchorElement;
-    dltBtn?.addEventListener("click", () => {
+    deleteBtn.className = "fa fa-times btn btn-danger";
+    deleteBtn.addEventListener("click", () => {
       cartItems.splice(cartItems.indexOf(item), 1);
       localStorage.setItem("cart", JSON.stringify(cartItems));
       getDataForModal();
@@ -68,6 +63,7 @@ export function getDataForModal() {
     itemPrice.innerText = `$${item.price.toString()}`;
     itemQty.value = item.quantity.toString();
 
+    dltBtnContainer.appendChild(deleteBtn);
     itemContainer.appendChild(itemName);
     itemContainer.appendChild(itemSize);
     itemContainer.appendChild(itemPrice);
@@ -82,6 +78,7 @@ export function getDataForModal() {
 
     total += item.price * item.quantity;
   });
+
   const cost = document.getElementById("total-cost") as HTMLSpanElement;
   const totalFixed = total.toFixed(2);
   cost.innerText = `$${totalFixed.toString()}`;
