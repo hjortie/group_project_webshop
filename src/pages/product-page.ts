@@ -1,7 +1,6 @@
 import { getDataForModal } from "../helpers/htmlHelper";
 import { Article } from "../services/article";
 import { updateCartItemCount } from "../helpers/htmlHelper";
-import { CartItem } from "../models/cartitem";
 
 function createHtmlOneProduct() {
   const productData = localStorage.getItem("selectedProduct");
@@ -83,8 +82,8 @@ function createHtmlOneProduct() {
     } else {
       cart.push(selectedItem);
     }
-    getDataForModal();
     localStorage.setItem("cart", JSON.stringify(cart));
+    getDataForModal();
   });
 }
 
