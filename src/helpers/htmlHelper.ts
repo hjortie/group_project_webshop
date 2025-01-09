@@ -26,6 +26,7 @@ export function getDataForModal() {
       cartItems.splice(cartItems.indexOf(item), 1);
       localStorage.setItem("cart", JSON.stringify(cartItems));
       getDataForModal();
+      updateCartCount();
     });
     cartRow.className = "cart-row";
     cartItemQty.className = "qty-container";
@@ -40,10 +41,12 @@ export function getDataForModal() {
         total -= item.price;
         localStorage.setItem("cart", JSON.stringify(cartItems));
         getDataForModal();
+        updateCartCount();
       } else {
         cartItems.splice(cartItems.indexOf(item), 1);
         localStorage.setItem("cart", JSON.stringify(cartItems));
         getDataForModal();
+        updateCartCount();
       }
     });
     itemQty.type = "text";
@@ -56,6 +59,7 @@ export function getDataForModal() {
       itemQty.value = item.quantity.toString();
       total += item.price;
       getDataForModal();
+      updateCartCount();
     });
 
     itemName.innerText = item.title;
@@ -122,4 +126,17 @@ export function updateCartItemCount(count: number): void {
   }
 
   cartBadge.textContent = count.toString();
+}
+
+export function updateCartCount() {
+  const cart: Article[] = JSON.parse(localStorage.getItem("cart") || "[]");
+  const totalQuantity = cart.reduce((sum, item) => sum + item.quantity, 0);
+  const cartCountSpan = document.querySelector(".right-side-nav span") as HTMLElement;
+  if (cartCountSpan) {
+    if (totalQuantity > 0) {
+      cartCountSpan.textContent = totalQuantity.toString();
+    } else {
+      cartCountSpan.textContent = ""; 
+    }
+  }
 }

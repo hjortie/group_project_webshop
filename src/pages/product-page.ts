@@ -1,4 +1,4 @@
-import { getDataForModal } from "../helpers/htmlHelper";
+import { getDataForModal, updateCartCount } from "../helpers/htmlHelper";
 import { Article } from "../services/article";
 
 function createHtmlOneProduct() {
@@ -82,8 +82,11 @@ function createHtmlOneProduct() {
       cart.push(selectedItem);
     }
     localStorage.setItem("cart", JSON.stringify(cart));
+    updateCartCount();
     getDataForModal();
   });
+
 }
+
 
 createHtmlOneProduct();
