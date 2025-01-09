@@ -45,6 +45,7 @@ export function getDataForModal() {
       } else {
         cartItems.splice(cartItems.indexOf(item), 1);
         localStorage.setItem("cart", JSON.stringify(cartItems));
+        total -= item.price;
         getDataForModal();
       }
     });
