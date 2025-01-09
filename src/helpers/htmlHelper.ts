@@ -45,7 +45,7 @@ export function getDataForModal() {
       } else {
         cartItems.splice(cartItems.indexOf(item), 1);
         localStorage.setItem("cart", JSON.stringify(cartItems));
-        total -= item.price;
+        total = 0;
         getDataForModal();
       }
     });
@@ -80,7 +80,8 @@ export function getDataForModal() {
 
     const cost = document.getElementById("total-cost") as HTMLSpanElement;
     total += item.price * item.quantity;
-    cost.innerText = `$${total.toString()}`;
+    const totalFixed = total.toFixed(2);
+    cost.innerText = `$${totalFixed.toString()}`;
   });
 }
 
