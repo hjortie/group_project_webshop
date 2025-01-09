@@ -364,7 +364,6 @@ a:hover {
   justify-content: flex-start;
   gap: 10px;
   flex-grow: 1;
-
 }
 
 .cart-size label,
@@ -476,7 +475,7 @@ input::-webkit-inner-spin-button {
   flex-wrap: wrap;
 
   #image-container {
-    width: 50vw;
+    width: 200px;
   }
 
   #description-container {
