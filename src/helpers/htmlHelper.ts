@@ -11,7 +11,7 @@ export function getDataForModal() {
     const cartRow = document.createElement("tr");
     const itemContainer = document.createElement("td");
     const cartItemQty = document.createElement("td");
-    const dltBtn = document.createElement("td");
+    const dltBtnContainer = document.createElement("td");
 
     const itemName = document.createElement("p");
     const itemPrice = document.createElement("p");
@@ -23,8 +23,11 @@ export function getDataForModal() {
     const btnContent = `<a href="#" class="btn btn-danger btn-sm">
 <i class="fa fa-times"></i>
 </a>`;
-    dltBtn.innerHTML = btnContent;
-    dltBtn.addEventListener("click", () => {
+    dltBtnContainer.innerHTML = btnContent;
+    const dltBtn = document.getElementsByClassName(
+      "btn-danger"
+    )[0] as HTMLAnchorElement;
+    dltBtn?.addEventListener("click", () => {
       cartItems.splice(cartItems.indexOf(item), 1);
       localStorage.setItem("cart", JSON.stringify(cartItems));
       getDataForModal();
@@ -38,14 +41,13 @@ export function getDataForModal() {
     decrementBtn.addEventListener("click", () => {
       if (item.quantity > 1) {
         item.quantity -= 1;
-        localStorage.setItem("cart", JSON.stringify(cartItems));
         itemQty.value = item.quantity.toString();
         total -= item.price;
+        localStorage.setItem("cart", JSON.stringify(cartItems));
         getDataForModal();
       } else {
         cartItems.splice(cartItems.indexOf(item), 1);
         localStorage.setItem("cart", JSON.stringify(cartItems));
-        total = 0;
         getDataForModal();
       }
     });
@@ -74,15 +76,18 @@ export function getDataForModal() {
     cartItemQty.appendChild(incrementBtn);
     cartRow.appendChild(itemContainer);
     cartRow.appendChild(cartItemQty);
-    cartRow.appendChild(dltBtn);
+    cartRow.appendChild(dltBtnContainer);
 
     cartItemContainer.appendChild(cartRow);
 
-    const cost = document.getElementById("total-cost") as HTMLSpanElement;
     total += item.price * item.quantity;
-    const totalFixed = total.toFixed(2);
-    cost.innerText = `$${totalFixed.toString()}`;
   });
+  const cost = document.getElementById("total-cost") as HTMLSpanElement;
+  const totalFixed = total.toFixed(2);
+  cost.innerText = `$${totalFixed.toString()}`;
+  if (cartItems.length === 0) {
+    cost.innerText = "$0";
+  }
 }
 
 export const createHtmlWomensClothes = (clothes: Article[]) => {
