@@ -1,0 +1,129 @@
+@media (max-width: 768px) {
+  /* Category Page */
+  .page-header {
+    margin: auto;
+    width: 100%;
+    text-align: center;
+  }
+
+  #clothing {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Hero Section */
+  #introduction {
+    flex-direction: column;
+    text-align: center;
+    gap: 20px;
+    padding-top: 20px;
+  }
+
+  .brandNamn h1 {
+    font-size: 2.5rem;
+  }
+
+  #brandImage {
+    height: 60%;
+  }
+
+  .right-image {
+    display: none;
+  }
+
+  .left-image {
+    flex: none;
+    width: 100%;
+  }
+
+  /* Checkout Page */
+  .main-container {
+    display: block;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 0 30px;
+  }
+
+  .payment-form {
+    width: 100%;
+  }
+
+  #cart-items {
+    margin-top: 5px;
+  }
+
+  .cart-quantity-input {
+    width: 30px;
+  }
+
+  .btn.btn-danger {
+    padding: 0px 20px 0px 0px;
+  }
+
+  /*Product page*/
+  #product-section {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #product-section #image-container,
+  #product-section #description-container {
+    flex: none;
+    width: 100%;
+  }
+
+  #image-container img {
+    width: 60%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+  }
+
+  /* Footer */
+  .footer-top .content {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .footer-column {
+    flex: 1 1 100%;
+    margin: 0;
+  }
+
+  /* First column with logo */
+  .footer-column:first-child {
+    align-items: center;
+    text-align: center;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+  }
+
+  .social-icons {
+    justify-content: center;
+  }
+
+  .footer-icon-row {
+    justify-content: flex-start;
+    padding-left: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-icon-row {
+    justify-content: flex-start;
+  }
+
+  .social-icons {
+    gap: 15px;
+  }
+
+  .social-icons a {
+    font-size: 30px;
+    padding: 8px;
+  }
+}
