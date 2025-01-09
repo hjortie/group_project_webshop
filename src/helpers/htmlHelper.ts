@@ -87,35 +87,7 @@ export function getDataForModal() {
   }
 }
 
-export const createHtmlWomensClothes = (clothes: Article[]) => {
-  clothes.forEach((item) => {
-    const itemContainer = document.createElement("div");
-    const image = document.createElement("img");
-    const title = document.createElement("span");
-    const price = document.createElement("p");
-    // const buyButton = document.createElement("button");
-
-    itemContainer.id = "item-container";
-    image.src = item.image;
-    image.alt = item.title;
-    title.innerHTML = item.title;
-    price.innerHTML = `${item.price} USD`;
-    // buyButton.innerHTML = "Buy";
-
-    itemContainer.appendChild(image);
-    itemContainer.appendChild(title);
-    itemContainer.appendChild(price);
-    // itemContainer.appendChild(buyButton);
-    document.getElementById("womens-clothing")?.appendChild(itemContainer);
-
-    itemContainer.addEventListener("click", () => {
-      localStorage.setItem("selectedProduct", JSON.stringify(item));
-      window.location.href = "product-page.html";
-    });
-  });
-};
-
-export const createHtmlMensClothes = (clothes: Article[]) => {
+export const createHtmlClothes = (clothes: Article[]) => {
   clothes.forEach((item) => {
     const itemContainer = document.createElement("div");
     const image = document.createElement("img");
@@ -126,12 +98,12 @@ export const createHtmlMensClothes = (clothes: Article[]) => {
     image.src = item.image;
     image.alt = item.title;
     title.innerHTML = item.title;
-    price.innerHTML = `${item.price} USD`;
+    price.innerHTML = `$${item.price}`;
 
     itemContainer.appendChild(image);
     itemContainer.appendChild(title);
     itemContainer.appendChild(price);
-    document.getElementById("mens-clothing")?.appendChild(itemContainer);
+    document.getElementById("clothing")?.appendChild(itemContainer);
 
     itemContainer.addEventListener("click", () => {
       localStorage.setItem("selectedProduct", JSON.stringify(item));
@@ -139,6 +111,31 @@ export const createHtmlMensClothes = (clothes: Article[]) => {
     });
   });
 };
+
+// export const createHtmlMensClothes = (clothes: Article[]) => {
+//   clothes.forEach((item) => {
+//     const itemContainer = document.createElement("div");
+//     const image = document.createElement("img");
+//     const title = document.createElement("span");
+//     const price = document.createElement("p");
+
+//     itemContainer.id = "item-container";
+//     image.src = item.image;
+//     image.alt = item.title;
+//     title.innerHTML = item.title;
+//     price.innerHTML = `${item.price} USD`;
+
+//     itemContainer.appendChild(image);
+//     itemContainer.appendChild(title);
+//     itemContainer.appendChild(price);
+//     document.getElementById("mens-clothing")?.appendChild(itemContainer);
+
+//     itemContainer.addEventListener("click", () => {
+//       localStorage.setItem("selectedProduct", JSON.stringify(item));
+//       window.location.href = "product-page.html";
+//     });
+//   });
+// };
 
 export function updateCartItemCount(count: number): void {
   const cartIcon = document.getElementById("ShoppingCart") as HTMLElement;

@@ -150,8 +150,7 @@ a:hover {
   margin-left: 9%;
 }
 
-#womens-clothing,
-#mens-clothing {
+#clothing {
   display: grid;
   grid-template-columns: 25% 25% 25%;
   gap: 3rem;
@@ -183,8 +182,7 @@ a:hover {
     text-align: center;
   }
 
-  #womens-clothing,
-  #mens-clothing {
+  #clothing {
     display: flex;
     flex-direction: column;
   }
@@ -364,7 +362,6 @@ a:hover {
   justify-content: flex-start;
   gap: 10px;
   flex-grow: 1;
-
 }
 
 .cart-size label,

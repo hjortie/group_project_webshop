@@ -1,4 +1,4 @@
-import { createHtmlMensClothes } from "../helpers/htmlHelper";
+import { createHtmlClothes } from "../helpers/htmlHelper";
 import { Article } from "../services/article";
 import { getClothes } from "../services/clothingService";
 const menURL = `men's%20clothing`;
@@ -9,4 +9,4 @@ const newClothes = clothes.map(
     new Article(item.title, item.price, item.image, item.description, 0, "")
 );
 
-createHtmlMensClothes(newClothes);
+createHtmlClothes(newClothes);
