@@ -1,6 +1,5 @@
 import { getDataForModal } from "../helpers/htmlHelper";
 import { Article } from "../services/article";
-import { updateCartItemCount } from "../helpers/htmlHelper";
 
 function createHtmlOneProduct() {
   const productData = localStorage.getItem("selectedProduct");
