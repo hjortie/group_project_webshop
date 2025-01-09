@@ -217,7 +217,7 @@ a:hover {
 
 .left-image {
   flex: 1;
-  background-image: url("src/images/brandImg_left.png");
+  background-image: url("./images/brandImg_left.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -225,7 +225,7 @@ a:hover {
 
 .right-image {
   flex: 1;
-  background-image: url("src/images/brandImg_right.png");
+  background-image: url("./images/brandImg_right.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
