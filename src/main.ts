@@ -1,7 +1,7 @@
-import { getDataForModal, updateCartCount } from "./helpers/htmlHelper";
+import { createHtmlWomensClothes } from "./helpers/htmlHelper";
+import { getClothes } from "./services/womensClothingService";
+import "./style.css";
 
-document.addEventListener("DOMContentLoaded", () => {
-  updateCartCount();
-});
+const womensClothes = await getClothes();
 
-getDataForModal();
+createHtmlWomensClothes(womensClothes);

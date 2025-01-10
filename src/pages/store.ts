@@ -1,45 +1,63 @@
-import { getDataForModal } from "../helpers/htmlHelper";
-
-const store = (): void => {
+function store(): void {
+  // Load cart items from localStorage on page load
   loadCartFromLocalStorage();
 
-  const purchaseButton = document.getElementById(
-    "btn-purchase"
-  ) as HTMLButtonElement;
-  purchaseButton.addEventListener("click", purchaseClicked);
+  const removeCartItemButtons = document.getElementsByClassName('btn-danger');
+  for (let i = 0; i < removeCartItemButtons.length; i++) {
+    const button = removeCartItemButtons[i] as HTMLButtonElement;
 
-  updateCartTotal();
-  getDataForModal();
-};
+    // Use an anonymous function to pass the index to removeCartItem
+    button.addEventListener('click', () => {
+      removeCartItem(i); // Pass the index of the current button
+    });
+  }
 
-const loadCartFromLocalStorage = (): void => {
-  const cartItems = JSON.parse(localStorage.getItem("cart") || "[]");
-  const cartContainer = document.getElementById("cart-items") as HTMLElement;
-  cartContainer.innerHTML = "";
+  const quantityInputs = document.getElementsByClassName('cart-quantity-input');
+  for (let i = 0; i < quantityInputs.length; i++) {
+    const input = quantityInputs[i] as HTMLInputElement;
+    input.addEventListener('change', quantityChanged);
+  }
 
-  for (let i = 0; i < cartItems.length; i++) {
-    const item = cartItems[i];
-    const cartRow = document.createElement("div");
-    cartRow.classList.add("cart-row");
+  const purchaseButton = document.getElementsByClassName('btn-purchase')[0] as HTMLButtonElement;
+  purchaseButton.addEventListener('click', purchaseClicked);
+}
+store();
+
+function loadCartFromLocalStorage(): void {
+  const cartItems = JSON.parse(localStorage.getItem('cart') || '[]');
+  const cartContainer = document.getElementsByClassName('cart-items')[0] as HTMLElement;
+  cartContainer.innerHTML = ''; // Clear existing cart items
+
+  cartItems.forEach((item: { image: string; title: string; price: number }, index: number) => { // Added index parameter
+    const cartRow = document.createElement('div');
+    cartRow.classList.add('cart-row');
 
     const cartRowContents = `
       <div class="cart-item">
         <img class="cart-item-image" src="${item.image}" width="100" height="100">
         <div class="cart-item-details">
           <span class="cart-item-title">${item.title}</span>
-          <span class="cart-price" id="cart-price">${item.price}</span>
-         
+          <span class="cart-price">$${item.price}</span>
           <div class="cart-size">
-            <label>Size: ${item.size}</label>
+            <label for="size">Size:</label>
+            <select id="size">
+              <option>S</option>
+              <option>M</option>
+              <option selected>L</option>
+              <option>XL</option>
+              <option>XXL</option>
+              <option>XXXL</option>
+              <option>XXXXL</option>
+              <option>XXXXXL</option>
+              <option>XXXXXXL</option>
+            </select>
           </div>
-
           <div class="cart-quantity">
             <label for="quantity">Quantity:</label>
             <button class="quantity-btn decrement" type="button">-</button>
-            <input id="quantity" class="cart-quantity-input" type="number" value="${item.quantity}" min="1">
+            <input id="quantity" class="cart-quantity-input" type="number" value="1" min="1">
             <button class="quantity-btn increment" type="button">+</button>
           </div>
-
         </div>
         <button class="btn btn-danger" id="btn-danger" type="button">
           <i class="fa-solid fa-trash-can"></i>
@@ -50,153 +68,96 @@ const loadCartFromLocalStorage = (): void => {
     cartRow.innerHTML = cartRowContents;
     cartContainer.appendChild(cartRow);
 
-    const removeButton = cartRow.getElementsByClassName(
-      "btn-danger"
-    )[0] as HTMLButtonElement;
-    removeButton.addEventListener("click", () => removeCartItem(i));
+    // Initialize event listeners for remove button, pass index to removeCartItem
+    const removeButton = cartRow.getElementsByClassName('btn-danger')[0] as HTMLButtonElement;
+    removeButton.addEventListener('click', () => removeCartItem(index)); // Pass the index here
 
-    const quantityInput = cartRow.getElementsByClassName(
-      "cart-quantity-input"
-    )[0] as HTMLInputElement;
-    quantityInput.addEventListener("change", quantityChanged);
+    // Initialize event listeners for quantity input
+    const quantityInput = cartRow.getElementsByClassName('cart-quantity-input')[0] as HTMLInputElement;
+    quantityInput.addEventListener('change', quantityChanged);
 
-    const incrementButton = cartRow.getElementsByClassName(
-      "increment"
-    )[0] as HTMLButtonElement;
-    const decrementButton = cartRow.getElementsByClassName(
-      "decrement"
-    )[0] as HTMLButtonElement;
+    // Initialize event listeners for increment and decrement buttons
+    const incrementButton = cartRow.getElementsByClassName('increment')[0] as HTMLButtonElement;
+    const decrementButton = cartRow.getElementsByClassName('decrement')[0] as HTMLButtonElement;
 
-    incrementButton.addEventListener("click", () => {
-      const currentValue = +quantityInput.value;
+    incrementButton.addEventListener('click', () => {
+      const currentValue = parseInt(quantityInput.value, 10);
       quantityInput.value = (currentValue + 1).toString();
 
-      cartItems[i].quantity = currentValue + 1;
-      localStorage.setItem("cart", JSON.stringify(cartItems));
-
+      // Update the total after increment
       updateCartTotal();
     });
 
-    decrementButton.addEventListener("click", () => {
-      const currentValue = +quantityInput.value;
+    decrementButton.addEventListener('click', () => {
+      const currentValue = parseInt(quantityInput.value, 10);
       if (currentValue > 1) {
         quantityInput.value = (currentValue - 1).toString();
 
-        cartItems[i].quantity = currentValue - 1;
-        localStorage.setItem("cart", JSON.stringify(cartItems));
-
+        // Update the total after decrement
         updateCartTotal();
       }
     });
-  }
+  });
+
+  // Update the total price
+  updateCartTotal();
 }
 
-const purchaseClicked = (event: Event): void => {
-  event.preventDefault();
-  const name = document.getElementById("name") as HTMLInputElement;
-  const address = document.getElementById("address") as HTMLInputElement;
-  const cardNumber = document.getElementById("card-number") as HTMLInputElement;
-  const expiry = document.getElementById("expiry") as HTMLInputElement;
-  const cvv = document.getElementById("cvv") as HTMLInputElement;
+function purchaseClicked(): void {
+  const cartItems = document.getElementById('cart-items') as HTMLElement;
 
-  if (checkFormFields(name, address, cardNumber, expiry, cvv)) {
-    const cartItems = document.getElementById("cart-items") as HTMLElement;
-    cartItems.textContent = "";
-    localStorage.removeItem("cart");
-    updateCartTotal();
+  cartItems.textContent = '';
 
-    const thankYouMessage = document.getElementById(
-      "thank-you-message"
-    ) as HTMLElement;
-    thankYouMessage.style.display = "block";
-    setTimeout(() => {
-      thankYouMessage.style.display = "none";
-    }, 5000);
-  }
+  localStorage.removeItem('cart');
+
+  updateCartTotal();
+
+  const thankYouMessage = document.getElementById('thank-you-message') as HTMLElement;
+  thankYouMessage.style.display = 'block'; 
+  setTimeout(() => {
+    thankYouMessage.style.display = 'none';
+  }, 5000);
 }
 
-function checkFormFields(
-  name: HTMLInputElement,
-  address: HTMLInputElement,
-  cardNumber: HTMLInputElement,
-  expiry: HTMLInputElement,
-  cvv: HTMLInputElement
-): boolean {
-  if (!name.value) {
-    alert("Please fill in your name.");
-    return false;
-  }
-  if (!address.value) {
-    alert("Please fill in your address.");
-    return false;
-  }
-  if (!cardNumber.value) {
-    alert("Please fill in your card number.");
-    return false;
-  }
-  if (!expiry.value) {
-    alert("Please fill in the expiry date.");
-    return false;
-  }
-  if (!cvv.value) {
-    alert("Please fill in the CVV.");
-    return false;
-  }
-
-  return true;
-}
-
-const removeCartItem = (index: number): void => {
-  const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+function removeCartItem(index: number): void {
+  const cart = JSON.parse(localStorage.getItem('cart') || '[]');
 
   cart.splice(index, 1);
 
-  localStorage.setItem("cart", JSON.stringify(cart));
+  localStorage.setItem('cart', JSON.stringify(cart));
 
   loadCartFromLocalStorage();
   updateCartTotal();
 }
 
-const quantityChanged = (event: Event): void => {
+function quantityChanged(event: Event): void {
   const input = event.target as HTMLInputElement;
-
-  if (input.value === "" || Number(input.value) <= 0) {
-    input.value = "1";
+  
+  if (input.value === '' || Number(input.value) <= 0) {
+    input.value = '1';
   }
-
+  
   updateCartTotal();
 }
 
-const updateCartTotal = (): void => {
-  const cartItemContainer = document.getElementById(
-    "cart-items"
-  ) as HTMLElement;
-  const cartRows = cartItemContainer.getElementsByClassName("cart-row");
+function updateCartTotal(): void {
+  const cartItemContainer = document.getElementsByClassName('cart-items')[0] as HTMLElement;
+  const cartRows = cartItemContainer.getElementsByClassName('cart-row');
   let total = 0;
 
   for (let i = 0; i < cartRows.length; i++) {
     const cartRow = cartRows[i] as HTMLElement;
-    const priceElement = cartRow.getElementsByClassName(
-      "cart-price"
-    )[0] as HTMLElement;
-    const quantityElement = cartRow.getElementsByClassName(
-      "cart-quantity-input"
-    )[0] as HTMLInputElement;
+    const priceElement = cartRow.getElementsByClassName('cart-price')[0] as HTMLElement;
+    const quantityElement = cartRow.getElementsByClassName('cart-quantity-input')[0] as HTMLInputElement;
 
-    // Get the price/quantity as a number
-    const price = +priceElement.innerText.replace("$", "");
-    const quantity = +quantityElement.value;
-
+    const price = parseFloat(priceElement.innerText.replace('$', ''));
+    const quantity = Number(quantityElement.value);
     total += price * quantity;
   }
 
-  // Round the total to 2 decimal, toFixed(2) returns a string, + operator to convert the result of toFixed(2) back to a number.
-  total = +total.toFixed(2);
-
-  const totalPriceElement = document.getElementById(
-    "cart-total-price"
-  ) as HTMLElement;
+  total = Math.round(total * 100) / 100;
+  const totalPriceElement = document.getElementsByClassName('cart-total-price')[0] as HTMLElement;
   totalPriceElement.innerText = `$${total}`;
 }
 
-store();
+// Bugg när man väljer att ta bort en vara som inte är den sista i listan så försvinner två varor istället för en på första klicket. 
