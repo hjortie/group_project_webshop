@@ -1,6 +1,7 @@
 /* Start product-page */
 #product-section {
   display: flex;
+  flex-direction: row;
   flex-wrap: wrap;
   gap: 2rem;
 
