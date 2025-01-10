@@ -2,18 +2,23 @@
 #product-section {
   display: flex;
   flex-wrap: wrap;
-  /* gap: 2 rem;
-  padding: 2 rem; */
+  gap: 2rem;
 
   #image-container {
+    margin-left: 1rem;
+    max-width: 40vw;
     flex: 1;
-    min-width: 650px;
+
+    img {
+      width: 100%;
+    }
   }
 
   #description-container {
     flex: 1;
-    min-width: 460px;
-    /* padding: 2rem; */
+    width: 50vw;
+    padding-top: 2rem;
+    margin-right: 3rem;
   }
 }
 
