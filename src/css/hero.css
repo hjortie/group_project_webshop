@@ -56,12 +56,10 @@
 .brandNamn h1 {
   color: var(--main-h-color);
   font-size: 2.4rem;
-  margin: 0;
 }
 
 .brandText p {
   color: var(--lightText);
   line-height: 1.6;
-  margin: 0;
   font-size: 1.1rem;
 }
